@@ -1,8 +1,7 @@
 /**
  * Created by danielfogerty on 2/1/17.
  */
-var current_turn = 0;
-var position_array = [1, 1, 1, 1, 1, 1, 1];
+var current_token = 0;
 var game_array = null;
 var game_state = [[],[],[],[],[],[],[]];
 
@@ -10,35 +9,46 @@ $(document).ready(initialize_game);
 
 function initialize_game() {
     game_array = $('.column');
+    console.log('initialized');
     $('.column').click(add_player_token);
 }
 
 function add_player_token() {
-    for (var i = 0; i < game_array.length; i++) {
+    for (var i = 0; i < 7; i++) {
         if (this == game_array[i]) {
-            if (position_array[i] > 6) {
+            if (game_state[i].length > 6) {
                 return;
             }
-            if(current_turn === 1) {
-                $(this).find('.cell:nth-child(' + position_array[i] + ')').find('.player-token').addClass('p1-token');
-                game_state[i][position_array[i]] = 1;
-                position_array[i]++;
-                current_turn = 0;
-            } else {
-                $(this).find('.cell:nth-child(' + position_array[i] + ')').find('.player-token').addClass('p2-token');
-                game_state[i][position_array[i]] = 0;
-                position_array[i]++;
-                current_turn = 1;
-            }
+            game_state[i].push(current_token);
+            change_game_state();
+
         }
     }
     check_win();
+    change_turn();
+}
+
+function change_game_state () {
+  console.log(game_state.length);
+  for(var i = 0; i < game_state.length; i++) {
+    for(var j = 0; j < game_state[i].length; j++) {
+      if(game_state[i][j] == 1) {
+        $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('p1-token');
+      } else {
+        $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('p2-token');
+      }
+    }
+  }
 }
 
 function check_win() {
-
+  return;
 }
 
 function reset_game() {
-    
+
+}
+
+function change_turn() {
+  current_token = 1 - current_token;
 }
