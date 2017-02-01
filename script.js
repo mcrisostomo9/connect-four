@@ -40,5 +40,5 @@ function check_win() {
 }
 
 function reset_game() {
-    
+
 }
