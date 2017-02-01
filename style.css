@@ -1,7 +1,6 @@
 body{
     font-size:0;
-    background-color:palegoldenrod;
-    background-image:url('graphics/skybackground.png')
+    background: url('graphics/skybackground.png') no-repeat;
 }
 
 .content-wrapper{
@@ -63,22 +62,23 @@ h1{
     margin: 0 2px;
 }
 .cell {
-    background-color: gray;
     width: 100%;
     height: 100%;
     margin: 2px;
     border: 2px black solid;
-    box-sizing: box-sizing;
-    background-image:url("graphics/_ground/ground07.png");
+    background: gray url("graphics/_ground/ground07.png") no-repeat;
+    background-size: cover;
 }
 
 .p1-token {
     width:100%;
     height:100%;
-    background-color:red;
+    background:url("graphics/blueToken.png") no-repeat;
+    background-size:cover;
 }
 .p2-token{
     width:100%;
     height:100%;
-    background-color:blue;
+    background:url("graphics/2PToken.png") no-repeat;
+    background-size:cover;
 }
