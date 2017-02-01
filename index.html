@@ -10,162 +10,167 @@
     <script src="script.js"></script>
 </head>
 <body>
+<div class="content-wrapper">
     <header>
         <h1>CONNECT 4!</h1>
     </header>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="well col-lg-2 offset-lg-1 col-md-2 offset-md-1 col-sm-12 col-xs-12 player-panel player1">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium architecto cum, dignissimos distinctio doloribus excepturi impedit ipsam necessitatibus, neque nihil perspiciatis quae quod rem sapiente sequi suscipit totam. Esse, sunt!
+    <div class="well player-panel player1 span">
+        <div>Player 1</div>
+        <div>Time Left: </div>
+        <div>2:00</div>
+        <div class="piece-container"></div>
+    </div>
+    <div class="game-area-wrapper">
+    <div class="game-area">
+        <div class="column column1">
+            <div class="cell">
+                <div class="player-token p1-token"></div>
             </div>
-
-            <div class="game-area col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <div class="column column1">
-                    <div class="cell">
-                        <div class="player-token p1-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token p2-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                </div>
-                <div class="column column2">
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                </div>
-                <div class="column column3">
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                </div>
-                <div class="column column4">
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                </div>
-                <div class="column column5">
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                </div>
-                <div class="column column6">
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                </div>
-                <div class="column column7">
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                    <div class="cell">
-                        <div class="player-token"></div>
-                    </div>
-                </div>
+            <div class="cell">
+                <div class="player-token p2-token"></div>
             </div>
-
-                <div class="well col-lg-2 col-md-2 col-sm-12 col-xs-12 player-panel player2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur deserunt eius enim facere, incidunt maxime possimus quae quasi qui quos repellat repellendus saepe sunt. A nemo perferendis possimus vel voluptas!
-                </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+        </div>
+        <div class="column column2">
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+        </div>
+        <div class="column column3">
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+        </div>
+        <div class="column column4">
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+        </div>
+        <div class="column column5">
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+        </div>
+        <div class="column column6">
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+        </div>
+        <div class="column column7">
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
+            <div class="cell">
+                <div class="player-token"></div>
+            </div>
         </div>
     </div>
+    </div>
+    <div class="well player-panel player2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur deserunt eius enim facere, incidunt maxime possimus quae quasi qui quos repellat repellendus saepe sunt. A nemo perferendis possimus vel voluptas!
+    </div>
+
+    <div class="current-player-panel">
+        <p>Current Player: <span class="current-player-panel-icon"><img src="" alt="Player 1"></span></p>
+    </div>
+</div>
 </body>
 </html>

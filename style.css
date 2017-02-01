@@ -1,9 +1,36 @@
-h1{
-    text-align:center;
+body{
+    font-size:0;
+    background-color:palegoldenrod;
 }
 
-.container-fluid{
+.content-wrapper{
+    width:90%;
+    margin:auto;
+}
+h1{
+    text-align:center;
+    font-size:initial;
+}
 
+.player-panel{
+    display:inline-block;
+    width:30%;
+    height:30vw;
+    font-size:initial;
+    vertical-align:top;
+    text-align:center;
+    background-color:cornflowerblue;
+}
+
+.current-player-panel{
+    font-size:initial;
+    width:15%;
+    margin:auto;
+    background-color:salmon;
+}
+.game-area-wrapper{
+    width:40%;
+    display:inline-block;
 }
 .game-area{
     display:flex;
@@ -11,6 +38,7 @@ h1{
     height:30vw;
     background-color:lavender;
     justify-content:space-around;
+    margin:auto;
 }
 .column {
     display:flex;
