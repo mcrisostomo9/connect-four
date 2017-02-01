@@ -1,3 +1,10 @@
+h1{
+    text-align:center;
+}
+
+.container-fluid{
+
+}
 .game-area{
     display:flex;
     width: 30vw;
