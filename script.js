@@ -4,6 +4,7 @@
 var current_token = 0;
 var game_array = null;
 var game_state = [[],[],[],[],[],[],[]];
+var last_placed = [];
 
 $(document).ready(initialize_game);
 
@@ -21,15 +22,15 @@ function add_player_token() {
             }
             game_state[i].push(current_token);
             change_game_state();
+            check_win(i, game_state[i].length-1);
 
         }
     }
-    check_win();
     change_turn();
 }
 
 function change_game_state () {
-  console.log(game_state.length);
+  console.log(this);
   for(var i = 0; i < game_state.length; i++) {
     for(var j = 0; j < game_state[i].length; j++) {
       if(game_state[i][j] == 1) {
@@ -41,8 +42,91 @@ function change_game_state () {
   }
 }
 
-function check_win() {
-  return;
+function check_win(col, row) {
+  check_horizontal(col, row);
+  check_vertical(col, row);
+  check_diagonal(col, row);
+}
+
+function check_horizontal(col, row) {
+  var counter=1;
+  var i = 1;
+  while( (col-i) >= 0 && game_state[col][row] == game_state[col-i][row]) {
+    counter++;
+    i++;
+    if (counter == 4) {
+      winner();
+    }
+  }
+  i = 1;
+  while( (col+i) < game_state.length && game_state[col][row] == game_state[col+i][row]) {
+    counter++;
+    i++
+    if (counter == 4) {
+      winner();
+    }
+  }
+}
+
+function check_vertical(col, row) {
+  var counter = 1;
+  var i = 1;
+  while( (row-i) >= 0 && game_state[col][row] == game_state[col][row-i]) {
+    counter++;
+    i++;
+    if (counter == 4) {
+      winner();
+    }
+  }
+  i = 1;
+  while( (row+i) < game_state.length && game_state[col][row] == game_state[col][row+i]) {
+    counter++;
+    i++
+    if (counter == 4) {
+      winner();
+    }
+  }
+}
+
+function check_diagonal(col, row) {
+  var counter = 1;
+  var i = 1;
+  while( (col-i) >= 0 && (row - i) >= 0 && game_state[col][row] == game_state[col-i][row-i]) {
+    counter++;
+    i++;
+    if (counter == 4) {
+      winner()
+    }
+  }
+  i = 1;
+  while( (col+i) < game_state.length && (row + i) <= 5 && game_state[col][row] == game_state[col+i][row+i]) {
+    counter++;
+    i++
+    if (counter == 4) {
+      winner()
+    }
+  }
+  counter = 1;
+  i = 1;
+  while( (col-i) >= 0 && (row+i) <=5 && game_state[col][row] == game_state[col-i][row+i]) {
+    counter++;
+    i++;
+    if (counter == 4) {
+      winner();
+    }
+  }
+  i = 1;
+  while( (col+i) < game_state.length && (row-i) >= 0 && game_state[col][row] == game_state[col+i][row-i]) {
+    counter++;
+    i++
+    if (counter == 4) {
+      winner();
+    }
+  }
+}
+
+function winner() {
+  $('.game-area').text('you win');
 }
 
 function reset_game() {
