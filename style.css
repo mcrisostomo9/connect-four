@@ -1,32 +1,4 @@
-/*body {*/
-    /*font-size:0;*/
-    /*margin:0;*/
-/*}*/
-
-/*.game-area {*/
-    /*width:60vw;*/
-    /*height:60vw;*/
-    /*background-color: green;*/
-    /*display:flex;*/
-    /*justify-content:space-around;*/
-/*}*/
-
-/*.column{*/
-    /*display:flex;*/
-    /*width:500px;*/
-    /*justify-content:space-around;*/
-/*}*/
-
-/*.cell{*/
-    /*width:20vw;*/
-    /*height:20vw;*/
-    /*background-color: gray;*/
-/*}*/
-
 .game-area{
-    position: absolute;
-    top:0;
-    left:0;
     display:flex;
     width: 30vw;
     height:30vw;
@@ -47,7 +19,6 @@
     border: 2px black solid;
     margin: 2px 2px;
 }
-
 
 .p1-token {
     width:100%;
