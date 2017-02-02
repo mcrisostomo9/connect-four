@@ -151,11 +151,13 @@ function change_turn() {
     if(current_token === 0){
         $('.player1').addClass('current-player-indicator');
         $('.player2').removeClass('current-player-indicator');
-        $('.current-player-icon').attr("src", "graphics/2PToken.png");
+        $('.current-player-icon').attr("src", "graphics/blueToken.png");
+
     }else if(current_token = 1){
         $('.player2').addClass('current-player-indicator');
         $('.player1').removeClass('current-player-indicator');
-        $('.current-player-icon').attr("src", "graphics/blueToken.png");
+        $('.current-player-icon').attr("src", "graphics/2PToken.png");
+
     }
 }
 //COUNTDOWN TIMER
