@@ -17,6 +17,7 @@ function initialize_game() {
     $('.column').click(add_player_token);
     $('.player1').addClass('current-player-indicator');
     timer_button_handler();
+    $('#reset').click(reset_game);
 }
 
 function add_player_token() {
@@ -135,7 +136,11 @@ function winner() {
 }
 
 function reset_game() {
-
+  console.log('reset game');
+  game_state = [[],[],[],[],[],[],[]];
+  $('*').removeClass('p2-token p1-token played');
+  current_token = 0;
+  change_game_state();
 }
 
 function change_turn() {
