@@ -1,7 +1,7 @@
 /**
  * Created by danielfogerty on 2/1/17.
  */
-var current_token = 0;
+var current_token = 0; // current player, 0 is player 1, 1 is player 2
 var game_array = null;
 var game_state = [[],[],[],[],[],[],[]];
 var last_placed = [];
@@ -10,31 +10,29 @@ $(document).ready(initialize_game);
 
 function initialize_game() {
     game_array = $('.column');
-    console.log('initialized');
     $('.column').click(add_player_token);
 }
 
 function add_player_token() {
-    for (var i = 0; i < 7; i++) {
-        if (this == game_array[i]) {
-            if (game_state[i].length > 6) {
-                return;
-            }
-            game_state[i].push(current_token);
-            change_game_state();
-            check_win(i, game_state[i].length-1);
+  for (var i = 0; i < 7; i++) {
+      if (this == game_array[i]) {
+          if (game_state[i].length > 6) {
+              return;
+          }
+          game_state[i].push(current_token);
+          change_game_state();
+          check_win(i, game_state[i].length-1);
 
-        }
-    }
-    change_turn();
+      }
+  }
+  change_turn();
 }
 
 function change_game_state () {
-  console.log(this);
   for(var i = 0; i < game_state.length; i++) {
     for(var j = 0; j < game_state[i].length; j++) {
       if(game_state[i][j] == 1) {
-        $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('p1-token').removeClass('not-played');
+        $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('p1-token');
       } else {
         $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('p2-token');
       }
@@ -46,6 +44,7 @@ function check_win(col, row) {
   check_horizontal(col, row);
   check_vertical(col, row);
   check_diagonal(col, row);
+  //check_win_whole_board();
 }
 
 function check_horizontal(col, row) {
@@ -125,6 +124,16 @@ function check_diagonal(col, row) {
   }
 }
 
+function check_win_whole_board () {
+  for(var i = 0; i < game_state.length; i++) {
+    for(var j = 0; j < game_state[i].length; j++) {
+      check_diagonal(i, j);
+      check_vertical(i, j);
+      check_horizontal(i, j);
+    }
+  }
+}
+
 function winner() {
   $('.game-area').text('you win');
 }
@@ -135,8 +144,4 @@ function reset_game() {
 
 function change_turn() {
   current_token = 1 - current_token;
-}
-
-function token_drop_animation(){
-    console.log(this);
 }
