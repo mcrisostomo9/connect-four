@@ -113,7 +113,6 @@ function bomb() {
         current_player = current_token;
         current_token = 2;
     }
-git
 }
 
 /* function: change_game_state
