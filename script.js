@@ -24,7 +24,7 @@ function initialize_game() {
 function add_player_token() {
     for (var i = 0; i < 7; i++) {
         if (this == game_array[i]) {
-            if (game_state[i].length > 6) {
+            if (game_state[i].length > 5) {
                 return;
             }
             game_state[i].push(current_token);
@@ -213,7 +213,7 @@ function countdown_clock() {
             clearInterval(countdown_setInterval);
             $('.timer' + current_token).text("0:00");
         }
-    }, 500);
+    }, 250);
 }
 
 function initialize_clock_displays(){
