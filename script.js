@@ -37,7 +37,6 @@ function add_player_token() {
 }
 
 function change_game_state () {
-  console.log(this);
   for(var i = 0; i < game_state.length; i++) {
     for(var j = 0; j < game_state[i].length; j++) {
       if(game_state[i][j] == 1) {
@@ -133,11 +132,10 @@ function check_diagonal(col, row) {
 }
 
 function winner() {
-  $('.game-area').text('you win');
+  console.log(current_token+1 + ' is the winner');
 }
 
 function reset_game() {
-  console.log('reset game');
   game_state = [[],[],[],[],[],[],[]];
   $('*').removeClass('p2-token p1-token played');
   current_token = 0;
