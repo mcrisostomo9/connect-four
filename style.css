@@ -72,20 +72,20 @@ h1{
 }
 
 .player-token{
-    -webkit-transition-duration: 2000ms;
-    -moz-transition-duration: 2000ms;
-    -ms-transition-duration: 2000ms;
-    -o-transition-duration: 2000ms;
-    transition-duration: 2000ms;
-    top:0;
-}
-
-.player-token.not-played{
     position:absolute;
     top:-700%;
     z-index:1;
     display:block;
+    -webkit-transition-duration: 1000ms;
+    -moz-transition-duration: 1000ms;
+    -ms-transition-duration: 1000ms;
+    -o-transition-duration: 1000ms;
+    transition-duration: 1000ms;
 }
+.player-token.played{
+    top:0;
+}
+
 .p1-token {
     width:100%;
     height:100%;
