@@ -381,10 +381,12 @@ function audio_piece_placed() {
 
 //firebase
 
-var Connect4Model = new GenericFBModel('dfgdfgtertrdfsg',boardUpdated);
+var Connect4Model = new GenericFBModel('dannymarkmike',boardUpdated);
 
 function boardUpdated(data){
     console.log('this is the callback function', data);
+    game_state = data.current_state;
+    current_token = data.player;
     change_game_state();
     //call_firebase();
 }
