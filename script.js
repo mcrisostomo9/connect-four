@@ -54,6 +54,16 @@ function check_win(col, row) {
   check_diagonal(col, row);
 }
 
+function check_win_whole_board () {
+  for(var i = 0; i < game_state.length; i++) {
+    for(var j = 0; j < game_state[i].length; j++) {
+      check_diagonal(i, j);
+      check_vertical(i, j);
+      check_horizontal(i, j);
+    }
+  }
+}
+
 function check_horizontal(col, row) {
   var counter=1;
   var i = 1;
