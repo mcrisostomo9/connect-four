@@ -3,12 +3,14 @@
  */
 var current_token = 0;
 var game_array = null;
-var game_state = [[],[],[],[],[],[],[]];
+var game_state = [[1],[1],[1],[1],[1],[1],[1]];
 
 var countdown_date;
 var total_time = 120000;
 var time_left = [total_time,total_time];
 var countdown_setInterval;
+
+var local_play = true;
 
 $(document).ready(initialize_game);
 
@@ -31,6 +33,7 @@ function add_player_token() {
             change_game_state();
             check_win(i, game_state[i].length-1);
             audio_piece_placed();
+            call_firebase();
         }
     }
     change_turn();
@@ -173,12 +176,10 @@ function change_turn() {
 //COUNTDOWN TIMER
 
 function start_timer(){
-    console.log('start timer is being run');
     countdown_date = new Date().getTime() + time_left[current_token];
     countdown_clock();
 }
 function pause_timer(){
-    console.log('pause is being run');
     clearInterval(countdown_setInterval);
 }
 function timer_button_handler(){
@@ -233,8 +234,27 @@ function initialize_clock_displays(){
 function audio_piece_placed() {
     if(current_token === 0) {
         $('#piece_audio1').get(0).play();
-        console.log('played');
     }else if(current_token === 1) {
         $('#piece_audio2').get(0).play();
     }
+}
+
+//firebase
+
+var Connect4Model = new GenericFBModel('dfgdfgtertrdfsg',boardUpdated);
+
+function boardUpdated(data){
+    console.log('this is the callback function', data);
+    change_game_state();
+    call_firebase();
+}
+
+function call_firebase() {
+    var cavity_game = {
+        player: current_token,
+        current_state: game_state,
+        time: time_left
+    };
+    console.log("before being sent: ", cavity_game);
+    Connect4Model.saveState(cavity_game);
 }
