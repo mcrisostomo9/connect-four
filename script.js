@@ -92,6 +92,7 @@ function check_vertical(col, row) {
     i++;
     if (counter == 4) {
       winner();
+      return;
     }
   }
   i = 1;
@@ -100,6 +101,7 @@ function check_vertical(col, row) {
     i++;
     if (counter == 4) {
       winner();
+      return;
     }
   }
 }
@@ -124,7 +126,7 @@ function check_diagonal(col, row) {
   }
   counter = 1;
   i = 1;
-  while( (col-i) >= 0 && (row+i) <=5 && game_state[col][row] == game_state[col-i][row+i]) {
+  while ((col-i) >= 0 && (row+i) <=5 && game_state[col][row] == game_state[col-i][row+i]) {
     counter++;
     i++;
     if (counter == 4) {
