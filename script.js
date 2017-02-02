@@ -3,7 +3,7 @@
  */
 var current_token = 0;
 var game_array = null;
-var game_state = [[1],[1],[1],[1],[1],[1],[1]];
+var game_state = [[],[],[],[],[],[],[]];
 
 var countdown_date;
 var total_time = 120000;
@@ -33,10 +33,10 @@ function add_player_token() {
             change_game_state();
             check_win(i, game_state[i].length-1);
             audio_piece_placed();
-            call_firebase();
         }
     }
     change_turn();
+    call_firebase();
 }
 
 function change_game_state () {
@@ -246,7 +246,7 @@ var Connect4Model = new GenericFBModel('dfgdfgtertrdfsg',boardUpdated);
 function boardUpdated(data){
     console.log('this is the callback function', data);
     change_game_state();
-    call_firebase();
+    //call_firebase();
 }
 
 function call_firebase() {
