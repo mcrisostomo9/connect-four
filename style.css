@@ -1,6 +1,8 @@
 body{
     font-size:0;
-    background: url('graphics/skybackground.png') no-repeat;
+    background: url('graphics/mountain_background.jpg') no-repeat bottom;
+    height:100vh;
+    margin:0;
 }
 
 .content-wrapper{
@@ -11,6 +13,10 @@ body{
 h1{
     text-align:center;
     font-size:10vmin;
+    font-family: 'Bahiana', cursive;
+    font-style: oblique;
+    color:darkgoldenrod;
+    text-shadow: 2px 2px #515151;
 }
 
 .layout{
@@ -26,7 +32,7 @@ h1{
     height:100%;
     margin: auto;
     background-color: #e9e9e9;
-    border-radius: 15%;
+    border-radius: 3%;
     border: 4px gray ridge;
     opacity: .8;
 }
@@ -37,7 +43,7 @@ h1{
     background-color: #e9e9e9;
     opacity: .8;
     padding: auto 2vmin;
-    border-radius: 10%;
+    border-radius: 3%;
     border: 4px gray ridge;
 }
 .current-player-panel-content{
@@ -76,17 +82,16 @@ img{
 .column {
     display:flex;
     flex-direction:column-reverse;
-    width: 17%;
+    width: 14%;
     justify-content:space-around;
-    text-align:center;
     margin: 0 2px;
+    font-size:initial;
 }
 .cell {
     width: 100%;
     height: 100%;
-    margin: 2px;
-    border: 2px black solid;
-    background: gray url("graphics/_ground/ground07.png") no-repeat;
+    #border: 2px black solid;
+    #background: gray url("graphics/_ground/ground07.png") no-repeat;
     background-size: cover;
     position:relative;
 }
@@ -122,5 +127,80 @@ img{
     position:absolute;
     top:2%;
     right:2%;
-    font-size:initial;
+    font-size:initial;st
 }
+
+
+/*TILESET 1 */
+
+.cell{
+    background:url("graphics/_ground/ground05.png") no-repeat bottom;
+    background-size:contain !important;
+}
+
+.cell:nth-child(1){
+    background: url("graphics/_rocky/rocky01.png") no-repeat bottom;
+}
+.cell:nth-child(6){
+    background: url("graphics/_leafy ground/leafy_ground01.png") no-repeat bottom;
+}
+.cell:nth-child(7){
+    background:none;
+}
+.column1 .cell:nth-child(7), .column2 .cell:nth-child(7), .column5 .cell:nth-child(7){
+    background: url("graphics/_aboveground/tree01.png") no-repeat bottom;
+}
+.column3 .cell:nth-child(7), .column6 .cell:nth-child(7){
+    background: url("graphics/_aboveground/tree02.png") no-repeat bottom;
+}
+.column4 .cell:nth-child(7), .column7 .cell:nth-child(7){
+    background: url("graphics/_aboveground/tree03.png") no-repeat bottom;
+}
+.column2 .cell:nth-child(4){
+    background: url("graphics/_hollow/hollow06.png") no-repeat bottom;
+}
+.column2 .cell:nth-child(5){
+    background: url("graphics/_hollow/hollow13.png") no-repeat bottom;
+}
+.column2 .cell:nth-child(6){
+    background: url("graphics/_leafy hollow/leafy_hollow01.png") no-repeat bottom;
+}
+.column3 .cell:nth-child(6){
+    background: url("graphics/_leafy hollow/leafy_hollow02.png") no-repeat bottom;
+}
+.column3 .cell:nth-child(4){
+    background: url("graphics/_hollow/hollow10.png") no-repeat bottom;
+}
+.column3 .cell:nth-child(5){
+    background: url("graphics/_hollow/hollow14.png") no-repeat bottom;
+}
+.column4 .cell:nth-child(2){
+    background: url("graphics/_hollow/hollow06.png") no-repeat bottom;
+}
+.column4 .cell:nth-child(3){
+    background: url("graphics/_hollow/hollow13.png") no-repeat bottom;
+}
+.column4 .cell:nth-child(4){
+    background: url("graphics/_hollow/hollow07.png") no-repeat bottom;
+}
+.column6 .cell:nth-child(4){
+    background: url("graphics/_hollow/hollow09.png") no-repeat bottom;
+}
+.column6 .cell:nth-child(2){
+    background: url("graphics/_hollow/hollow10.png") no-repeat bottom;
+}
+.column6 .cell:nth-child(3) {
+    background: url("graphics/_hollow/hollow14.png") no-repeat bottom;
+}
+.column5 .cell:nth-child(2){
+    background: url("graphics/_hollow/hollow15.png") no-repeat bottom;
+}
+.column5 .cell:nth-child(3){
+    background: url("graphics/_hollow/hollow middle.png") no-repeat bottom;
+}
+.column5 .cell:nth-child(4){
+    background: url("graphics/_hollow/hollow08.png") no-repeat bottom;
+
+}
+/*
+ */
