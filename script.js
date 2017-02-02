@@ -5,7 +5,8 @@ var current_token = 0;
 var game_array = null;
 var game_state = [[],[],[],[],[],[],[]];
 var last_placed = [];
-
+var p1_wins = 0;
+var p2_wins = 0;
 var countdown_date;
 var time_left = 180000;
 
@@ -61,7 +62,7 @@ function check_horizontal(col, row) {
     counter++;
     i++;
     if (counter == 4) {
-      winner();
+      winner(game_state[col][row]);
     }
   }
   i = 1;
@@ -69,7 +70,7 @@ function check_horizontal(col, row) {
     counter++;
     i++
     if (counter == 4) {
-      winner();
+      winner(game_state[col][row]);
     }
   }
 }
@@ -81,7 +82,7 @@ function check_vertical(col, row) {
     counter++;
     i++;
     if (counter == 4) {
-      winner();
+      winner(game_state[col][row]);
     }
   }
   i = 1;
@@ -89,7 +90,7 @@ function check_vertical(col, row) {
     counter++;
     i++
     if (counter == 4) {
-      winner();
+      winner(game_state[col][row]);
     }
   }
 }
@@ -101,7 +102,7 @@ function check_diagonal(col, row) {
     counter++;
     i++;
     if (counter == 4) {
-      winner()
+      winner(game_state[col][row]);
     }
   }
   i = 1;
@@ -109,7 +110,7 @@ function check_diagonal(col, row) {
     counter++;
     i++
     if (counter == 4) {
-      winner()
+      winner(game_state[col][row]);
     }
   }
   counter = 1;
@@ -118,7 +119,7 @@ function check_diagonal(col, row) {
     counter++;
     i++;
     if (counter == 4) {
-      winner();
+      winner(game_state[col][row]);
     }
   }
   i = 1;
@@ -126,13 +127,21 @@ function check_diagonal(col, row) {
     counter++;
     i++
     if (counter == 4) {
-      winner();
+      winner(game_state[col][row]);
     }
   }
 }
 
-function winner() {
-  $('.game-area').text('you win');
+function winner(player) {
+  player++;
+  if(player === 1) {
+    $('.player1-wins-record').text(++p1_wins);
+    console.log("Player 1 wins");
+  } else if(player === 2) {
+    $('.player2-wins-record').text(++p2_wins);
+    console.log("Player 2 wins");
+  }
+  reset_game();
 }
 
 function reset_game() {
