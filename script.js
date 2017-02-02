@@ -55,7 +55,8 @@ function add_player_token() {
                   drop_the_bomb();
                   change_game_state();
                   check_win(i, game_state[i].length-1);
-                  current_token = 0;
+                  current_token = current_player;
+                  change_turn();
                 }, 1500);
                 return;
               } else {
@@ -71,7 +72,7 @@ function add_player_token() {
                   drop_the_bomb();
                   change_game_state();
                   check_win(i, game_state[i].length-1);
-                  current_token = 1;
+                  current_token = current_player;
                   change_turn();
                 }, 1500);
                 return;
