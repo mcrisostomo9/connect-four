@@ -46,10 +46,8 @@ function add_player_token() {
               return;
           }
           if (current_token == 2) {
-            console.log("current player is ", current_player)
             if (current_player == 0) {
               if(player1_bombs > 0) {
-                console.log("in if statement for bomb");
                 game_state[i].push(current_token);
                 player1_bombs = player1_bombs-1;
                 change_game_state();
@@ -64,7 +62,6 @@ function add_player_token() {
             }
             if (current_player == 1) {
               if(player2_bombs > 0) {
-                console.log("in if statement for bomb");
                 game_state[i].push(current_token);
                 player2_bombs = player2_bombs-1;
                 change_game_state();
@@ -82,7 +79,6 @@ function add_player_token() {
             check_win(i, game_state[i].length-1);
             audio_piece_placed();
           }
-          console.log(current_token);
           game_state[i].push(current_token);
           change_game_state();
           check_win(i, game_state[i].length-1);
@@ -93,7 +89,6 @@ function add_player_token() {
 }
 
 function drop_the_bomb() {
-  console.log('dropping the bomb');
   for(var i = 0; i < game_state.length; i++) {
     for(var j = 0; j < game_state[i].length; j++) {
       if(game_state[i][j] == 2){
