@@ -4,6 +4,8 @@
 
  // defining global variables for timer and game tracking game state
 var current_token = 0; //0 is player 1, 1 is player 2, 3 is bomb
+var player1_bombs = 1;
+var player2_bombs = 1;
 var current_player;
 var game_array = null;
 var game_state = [[],[],[],[],[],[],[]]; // game_state is used to track the position of all tokens on the board
@@ -38,18 +40,50 @@ check for win
 call function to play sound for piece played
 */
 function add_player_token() {
-  current_player = current_token
   for (var i = 0; i < 7; i++) {
       if (this == game_array[i]) {
           if (game_state[i].length > 5) {
               return;
           }
-          current_token = current_player;
-          game_state[i].push(current_token);
           if (current_token == 2) {
+            console.log("current player is ", current_player)
+            if (current_player == 0) {
+              if(player1_bombs > 0) {
+                console.log("in if statement for bomb");
+                game_state[i].push(current_token);
+                player1_bombs = player1_bombs-1;
+                change_game_state();
+                drop_the_bomb();
+                change_game_state();
+                check_win(i, game_state[i].length-1);
+                current_token = 0;
+                return;
+              } else {
+                  current_token = current_player;
+              }
+            }
+            if (current_player == 1) {
+              if(player2_bombs > 0) {
+                console.log("in if statement for bomb");
+                game_state[i].push(current_token);
+                player2_bombs = player2_bombs-1;
+                change_game_state();
+                drop_the_bomb();
+                change_game_state();
+                check_win(i, game_state[i].length-1);
+                current_token = 1;
+                change_turn();
+                return;
+              } else {
+                current_token = current_player;
+              }
+            }
             change_game_state();
-            drop_the_bomb();
+            check_win(i, game_state[i].length-1);
+            audio_piece_placed();
           }
+          console.log(current_token);
+          game_state[i].push(current_token);
           change_game_state();
           check_win(i, game_state[i].length-1);
           audio_piece_placed();
@@ -59,6 +93,7 @@ function add_player_token() {
 }
 
 function drop_the_bomb() {
+  console.log('dropping the bomb');
   for(var i = 0; i < game_state.length; i++) {
     for(var j = 0; j < game_state[i].length; j++) {
       if(game_state[i][j] == 2){
