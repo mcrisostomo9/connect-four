@@ -3,7 +3,8 @@
  */
 
  // defining global variables for timer and game tracking game state
-var current_token = 0;
+var current_token = 0; //0 is player 1, 1 is player 2, 3 is bomb
+var current_player;
 var game_array = null;
 var game_state = [[],[],[],[],[],[],[]]; // game_state is used to track the position of all tokens on the board
 
@@ -26,6 +27,7 @@ function initialize_game() {
     $('.player1').addClass('current-player-indicator');
     timer_button_handler();
     $('#reset').click(reset_game);
+    $('.use-bomb').click(bomb);
 }
 
 /* Function: add_player_token
@@ -36,18 +38,41 @@ check for win
 call function to play sound for piece played
 */
 function add_player_token() {
-    for (var i = 0; i < 7; i++) {
-        if (this == game_array[i]) {
-            if (game_state[i].length > 5) {
-                return;
-            }
-            game_state[i].push(current_token);
+  current_player = current_token
+  for (var i = 0; i < 7; i++) {
+      if (this == game_array[i]) {
+          if (game_state[i].length > 5) {
+              return;
+          }
+          current_token = current_player;
+          game_state[i].push(current_token);
+          if (current_token == 2) {
             change_game_state();
-            check_win(i, game_state[i].length-1);
-            audio_piece_placed();
-        }
+            drop_the_bomb();
+          }
+          change_game_state();
+          check_win(i, game_state[i].length-1);
+          audio_piece_placed();
+      }
+  }
+  change_turn();
+}
+
+function drop_the_bomb() {
+  for(var i = 0; i < game_state.length; i++) {
+    for(var j = 0; j < game_state[i].length; j++) {
+      if(game_state[i][j] == 2){
+        game_state[i].splice(j-1, 3);
+        game_state[i-1].splice(j-1,3 );
+        game_state[i+1].splice(j-1, 3);
+      }
     }
-    change_turn();
+  }
+}
+
+function bomb() {
+  current_player = current_token;
+  current_token = 2;
 }
 
 /* function: change_game_state
@@ -55,12 +80,17 @@ function add_player_token() {
  Use seudo selectors to add a class of either p1-token or p2-token depending on the current player
 */
 function change_game_state () {
-  for(var i = 0; i < game_state.length; i++) {
-    for(var j = 0; j < game_state[i].length; j++) {
+  for(var i = 0; i < 7; i++) {
+    for(var j = 0; j < 6; j++) {
+      if(game_state[i][j] == undefined) {
+        $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').removeClass('p2-token played p1-token bomb bomb-token played')
+      }
       if(game_state[i][j] == 1) {
         $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('p2-token played');
-      } else {
+      } else if(game_state[i][j] == 0){
         $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('p1-token played');
+      } else if(game_state[i][j] == 2){
+        $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('bomb bomb-token played');
       }
     }
   }
