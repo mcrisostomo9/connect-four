@@ -6,6 +6,9 @@ var game_array = null;
 var game_state = [[],[],[],[],[],[],[]];
 var last_placed = [];
 
+var countdown_date;
+var time_left = 180000;
+
 $(document).ready(initialize_game);
 
 function initialize_game() {
@@ -13,6 +16,7 @@ function initialize_game() {
     console.log('initialized');
     $('.column').click(add_player_token);
     $('.player1').addClass('current-player-indicator');
+    timer_button_handler();
 }
 
 function add_player_token() {
@@ -146,7 +150,51 @@ function change_turn() {
         $('.current-player-icon').attr("src", "graphics/2PToken.png")
     }
 }
+//COUNTDOWN TIMER
 
-function token_drop_animation(){
-    console.log(this);
+function start_timer(){
+    console.log('start timer is being run');
+    countdown_date = new Date().getTime() + time_left;
+    coundown_clock();
 }
+function pause_timer(){
+    console.log('pause is being run');
+    clearInterval(countdown_clock);
+}
+function timer_button_handler(){
+    $('.start-button').click(function(){
+        start_timer();
+    });
+    $('.pause').click(function(){
+        pause_timer();
+    })
+}
+
+function coundown_clock(){
+    setInterval(function () {
+
+        // Get date and time
+        var now = new Date().getTime();
+
+        //Recalculate countDownDate
+        // Find the distance between now an the count down date
+        time_left = countdown_date - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var minutes = Math.floor((time_left % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((time_left % (1000 * 60)) / 1000);
+
+        if (seconds > 9) {
+            $('.timer').text(minutes + ":" + seconds);
+        }
+        else {
+            $('.timer').text(minutes + ":0" + seconds);
+        }
+
+        if (time_left < 0) {
+            clearInterval(coundown_clock);
+            $('.timer').text("0:00");
+        }
+    }, 1000);
+}
+
