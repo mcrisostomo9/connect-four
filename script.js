@@ -4,10 +4,11 @@
 var current_token = 0;
 var game_array = null;
 var game_state = [[],[],[],[],[],[],[]];
-var last_placed = [];
 
 var countdown_date;
-var time_left = 180000;
+var total_time = 120000;
+var time_left = [total_time,total_time];
+var countdown_setInterval;
 
 $(document).ready(initialize_game);
 
@@ -40,9 +41,9 @@ function change_game_state () {
   for(var i = 0; i < game_state.length; i++) {
     for(var j = 0; j < game_state[i].length; j++) {
       if(game_state[i][j] == 1) {
-        $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('p1-token played');
-      } else {
         $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('p2-token played');
+      } else {
+        $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('p1-token played');
       }
     }
   }
@@ -67,7 +68,7 @@ function check_horizontal(col, row) {
   i = 1;
   while( (col+i) < game_state.length && game_state[col][row] == game_state[col+i][row]) {
     counter++;
-    i++
+    i++;
     if (counter == 4) {
       winner();
     }
@@ -87,7 +88,7 @@ function check_vertical(col, row) {
   i = 1;
   while( (row+i) < game_state.length && game_state[col][row] == game_state[col][row+i]) {
     counter++;
-    i++
+    i++;
     if (counter == 4) {
       winner();
     }
@@ -144,27 +145,29 @@ function reset_game() {
 }
 
 function change_turn() {
+    pause_timer();
     current_token = 1 - current_token;
+    start_timer();
     if(current_token === 0){
         $('.player1').addClass('current-player-indicator');
         $('.player2').removeClass('current-player-indicator');
-        $('.current-player-icon').attr("src", "graphics/blueToken.png")
+        $('.current-player-icon').attr("src", "graphics/2PToken.png");
     }else if(current_token = 1){
         $('.player2').addClass('current-player-indicator');
         $('.player1').removeClass('current-player-indicator');
-        $('.current-player-icon').attr("src", "graphics/2PToken.png")
+        $('.current-player-icon').attr("src", "graphics/blueToken.png");
     }
 }
 //COUNTDOWN TIMER
 
 function start_timer(){
     console.log('start timer is being run');
-    countdown_date = new Date().getTime() + time_left;
-    coundown_clock();
+    countdown_date = new Date().getTime() + time_left[current_token];
+    countdown_clock();
 }
 function pause_timer(){
     console.log('pause is being run');
-    clearInterval(countdown_clock);
+    clearInterval(countdown_setInterval);
 }
 function timer_button_handler(){
     $('.start-button').click(function(){
@@ -175,33 +178,45 @@ function timer_button_handler(){
     })
 }
 
-function coundown_clock() {
-    setInterval(function () {
+function countdown_clock() {
+    countdown_setInterval = setInterval(function () {
 
         // Get date and time
         var now = new Date().getTime();
 
-        //Recalculate countDownDate
         // Find the distance between now an the count down date
-        time_left = countdown_date - now;
+        time_left[current_token] = countdown_date - now;
 
         // Time calculations for days, hours, minutes and seconds
-        var minutes = Math.floor((time_left % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((time_left % (1000 * 60)) / 1000);
+        var minutes = Math.floor((time_left[current_token] % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((time_left[current_token] % (1000 * 60)) / 1000);
 
         if (seconds > 9) {
-            $('.timer').text(minutes + ":" + seconds);
+            $('.timer' + current_token).text(minutes + ":" + seconds);
         }
         else {
-            $('.timer').text(minutes + ":0" + seconds);
+            $('.timer' + current_token).text(minutes + ":0" + seconds);
         }
-
         if (time_left < 0) {
-            clearInterval(coundown_clock);
-            $('.timer').text("0:00");
+            clearInterval(countdown_setInterval);
+            $('.timer' + current_token).text("0:00");
         }
-    }, 1000);
+    }, 500);
 }
+
+function initialize_clock_displays(){
+    var minutes = Math.floor((time_left[current_token] % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((time_left[current_token] % (1000 * 60)) / 1000);
+
+    if (seconds > 9) {
+        $('.timer0, .timer1').text(minutes + ":" + seconds);
+    }
+    else {
+        $('.timer0, .timer1' + current_token).text(minutes + ":0" + seconds);
+    }
+}
+
+// AUDIO FUNCTIONS
 
 function audio_piece_placed() {
     if(current_token === 0) {
