@@ -39,6 +39,12 @@ h1{
     margin:auto;
     background-color:salmon;
 }
+.current-player-indicator{
+    box-shadow:
+    0 0 60px 30px #fff
+    /*0 0 100px 60px #f0f,*/
+    /*0 0 140px 90px #0ff;*/
+}
 .game-area-wrapper{
     width:40%;
     display:inline-block;

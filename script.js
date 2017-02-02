@@ -12,6 +12,7 @@ function initialize_game() {
     game_array = $('.column');
     console.log('initialized');
     $('.column').click(add_player_token);
+    $('.player1').addClass('current-player-indicator');
 }
 
 function add_player_token() {
@@ -134,7 +135,14 @@ function reset_game() {
 }
 
 function change_turn() {
-  current_token = 1 - current_token;
+    current_token = 1 - current_token;
+    if(current_token === 0){
+        $('.player1').addClass('current-player-indicator');
+        $('.player2').removeClass('current-player-indicator');
+    }else if(current_token = 1){
+        $('.player2').addClass('current-player-indicator');
+        $('.player1').removeClass('current-player-indicator');
+    }
 }
 
 function token_drop_animation(){
