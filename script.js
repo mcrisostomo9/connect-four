@@ -24,7 +24,7 @@ function add_player_token() {
             game_state[i].push(current_token);
             change_game_state();
             check_win(i, game_state[i].length-1);
-
+            audio_piece_placed();
         }
     }
     change_turn();
@@ -142,6 +142,15 @@ function change_turn() {
     }else if(current_token = 1){
         $('.player2').addClass('current-player-indicator');
         $('.player1').removeClass('current-player-indicator');
+    }
+}
+
+function audio_piece_placed() {
+    if(current_token === 0) {
+        $('#piece_audio1').get(0).play();
+        console.log('played');
+    }else if(current_token === 1) {
+        $('#piece_audio2').get(0).play();
     }
 }
 
