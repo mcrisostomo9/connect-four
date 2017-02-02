@@ -68,8 +68,24 @@ h1{
     border: 2px black solid;
     background: gray url("graphics/_ground/ground07.png") no-repeat;
     background-size: cover;
+    position:relative;
 }
 
+.player-token{
+    -webkit-transition-duration: 2000ms;
+    -moz-transition-duration: 2000ms;
+    -ms-transition-duration: 2000ms;
+    -o-transition-duration: 2000ms;
+    transition-duration: 2000ms;
+    top:0;
+}
+
+.player-token.not-played{
+    position:absolute;
+    top:-700%;
+    z-index:1;
+    display:block;
+}
 .p1-token {
     width:100%;
     height:100%;
@@ -81,4 +97,10 @@ h1{
     height:100%;
     background:url("graphics/2PToken.png") no-repeat;
     background-size:cover;
+}
+button{
+    position:absolute;
+    top:2%;
+    right:2%;
+    font-size:initial;
 }
