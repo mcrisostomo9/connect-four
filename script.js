@@ -358,7 +358,7 @@ call function change_game_state to reset the board to empty
 function reset_game() {
   winner = false;
   game_state = [[''],[''],[''],[''],[''],[''],['']];
-  $('*').removeClass('p2-token p1-token played');
+  $('*').removeClass('p2-token p1-token played bomb bomb-token rock rock-token');
   current_token = 0;
   $('.timer0,.timer1').text('1:00');
   time_left = [60000, 60000];
@@ -480,7 +480,8 @@ function boardUpdated(data){
     }
     game_state = data.current_state;
     console.log('game_state after callback:', game_state);
-    current_token = data.player;
+    current_token = 1 - data.player;
+    change_turn();
     change_game_state();
 }
 
@@ -503,7 +504,7 @@ function reset_firebase(){
     cavity_game = {
         player: 0,
         current_state: [[''],[''],[''],[''],[''],[''],['']],
-        time: [12000, 12000]
+        time: [60000, 60000]
     };
     Connect4Model.saveState(cavity_game);
 }
