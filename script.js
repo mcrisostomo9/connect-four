@@ -383,9 +383,22 @@ function change_turn() {
         $('.player2').addClass('current-player-indicator');
         $('.player1').removeClass('current-player-indicator');
         $('.current-player-icon').attr("src", "graphics/2PToken.png");
-
     }
     call_firebase();
+}
+
+function firebase_set_turn() {
+  start_timer();
+  if(current_token === 0){
+      $('.player1').addClass('current-player-indicator');
+      $('.player2').removeClass('current-player-indicator');
+      $('.current-player-icon').attr("src", "graphics/blueToken.png");
+
+  }else if(current_token = 1){
+      $('.player2').addClass('current-player-indicator');
+      $('.player1').removeClass('current-player-indicator');
+      $('.current-player-icon').attr("src", "graphics/2PToken.png");
+  }
 }
 
 /* function: start_timer
@@ -479,9 +492,9 @@ function boardUpdated(data){
         return;
     }
     game_state = data.current_state;
+    current_token = data.player;
     console.log('game_state after callback:', game_state);
-    current_token = 1 - data.player;
-    change_turn();
+    firebase_set_turn();
     change_game_state();
 }
 
