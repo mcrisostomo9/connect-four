@@ -10,7 +10,7 @@ var player1_rocks = 1;
 var player2_rocks = 1;
 var current_player;
 var game_array = null;
-var game_state = [[],[],[],[],[],[],[]]; // game_state is used to track the position of all tokens on the board
+var game_state = [[''],[''],[''],[''],[''],[''],['']]; // game_state is used to track the position of all tokens on the board
 
 var countdown_date;
 var total_time = 120000;
@@ -324,8 +324,8 @@ will create modal with winner and loser, use firebase to tell the winner they wo
 !!NOT FINISHED
 */
 function winner(player) {
-  console.log("player" + player + ' is the winner');
-  setTimeout(alert(player + "is the winner"));
+    console.log("player" + player + ' is the winner');
+    alert(player + "is the winner");
 }
 
 /* function: reset_game
@@ -481,9 +481,3 @@ function reset_firebase(){
     };
     Connect4Model.saveState(cavity_game);
 }
-
-// var room_name = generate_fb_names();
-//
-// function generate_fb_names (){
-//     return new Date().getTime();
-// }
