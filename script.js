@@ -8,7 +8,7 @@ var player1_bombs = 1;
 var player2_bombs = 1;
 var current_player;
 var game_array = null;
-var game_state = [[],[],[],[],[],[],[]]; // game_state is used to track the position of all tokens on the board
+var game_state = [[''],[''],[''],[''],[''],[''],['']]; // game_state is used to track the position of all tokens on the board
 
 var countdown_date;
 var total_time = 120000;
@@ -78,7 +78,7 @@ function add_player_token() {
                   change_turn();
                 }, 1500);
                 return;
-              } else {
+              } else{
                 current_token = current_player;
               }
             }
@@ -125,11 +125,11 @@ function change_game_state () {
       if(game_state[i][j] == undefined) {
         $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').removeClass('p2-token played p1-token bomb bomb-token played')
       }
-      if(game_state[i][j] == 1) {
+      if(game_state[i][j] === 1) {
         $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('p2-token played');
-      } else if(game_state[i][j] == 0){
+      } else if(game_state[i][j] === 0){
         $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('p1-token played');
-      } else if(game_state[i][j] == 2){
+      } else if(game_state[i][j] === 2){
         $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('bomb bomb-token played');
       }
     }
@@ -144,6 +144,7 @@ function check_win(col, row) {
   check_horizontal(col, row);
   check_vertical(col, row);
   check_diagonal(col, row);
+  pause_timer();
 }
 
 /* function: check_win_whole_board
@@ -381,14 +382,17 @@ function audio_piece_placed() {
 
 //firebase
 
-var Connect4Model = new GenericFBModel('dannymarkmike',boardUpdated);
+var Connect4Model = new GenericFBModel('newtest4',boardUpdated);
 
 function boardUpdated(data){
-    console.log('this is the callback function', data);
+    console.log('data of callback function', data);
+    if (data === null){
+        return;
+    }
     game_state = data.current_state;
+    console.log('game_state after callback:', game_state);
     current_token = data.player;
     change_game_state();
-    //call_firebase();
 }
 
 function call_firebase() {
@@ -400,3 +404,9 @@ function call_firebase() {
     console.log("before being sent: ", cavity_game);
     Connect4Model.saveState(cavity_game);
 }
+
+// var room_name = generate_fb_names();
+//
+// function generate_fb_names (){
+//     return new Date().getTime();
+// }
