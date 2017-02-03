@@ -156,8 +156,13 @@ function drop_the_bomb() {
           }
         } else {
           game_state[i].splice(j-1, 3);
-          game_state[i+1].splice(j-1, 3);
-          game_state[i-1].splice(j-1, 3);
+          if(i-1 >= 0) {
+            game_state[i-1].splice(j-1, 3);
+          }
+          if (i+1 < game_state.length) {
+            game_state[i+1].splice(j-1, 3);            
+          }
+
         }
       }
     }
