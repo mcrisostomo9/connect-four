@@ -206,17 +206,17 @@ function countdown_clock() {
     }, 500);
 }
 
-function initialize_clock_displays(){
-    var minutes = Math.floor((time_left[current_token] % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((time_left[current_token] % (1000 * 60)) / 1000);
-
-    if (seconds > 9) {
-        $('.timer0, .timer1').text(minutes + ":" + seconds);
-    }
-    else {
-        $('.timer0, .timer1' + current_token).text(minutes + ":0" + seconds);
-    }
-}
+// function initialize_clock_displays(){
+//     var minutes = Math.floor((time_left[current_token] % (1000 * 60 * 60)) / (1000 * 60));
+//     var seconds = Math.floor((time_left[current_token] % (1000 * 60)) / 1000);
+//
+//     if (seconds > 9) {
+//         $('.timer0, .timer1').text(minutes + ":" + seconds);
+//     }
+//     else {
+//         $('.timer0, .timer1' + current_token).text(minutes + ":0" + seconds);
+//     }
+// }
 
 // AUDIO FUNCTIONS
 
