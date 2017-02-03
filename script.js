@@ -112,6 +112,7 @@ function add_player_token() {
                 return;
               } else {
                   current_token = current_player;
+                  return;
               }
             }
           if (current_player == 1) {
@@ -135,6 +136,7 @@ function add_player_token() {
                   return;
               } else {
                   current_token = current_player;
+                  return;
               }
             }
           }
