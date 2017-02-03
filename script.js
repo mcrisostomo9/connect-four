@@ -53,7 +53,7 @@ function add_player_token() {
               if (player1_rocks > 0) {
                 player1_rocks--;
                 game_state[i].push(current_token);
-                drop_the_rock();
+                game_state[i].push(current_player);
                 change_game_state();
                 current_token = current_player;
                 change_turn();
@@ -64,7 +64,7 @@ function add_player_token() {
               if (player2_rocks > 0) {
                 player2_rocks--;
                 game_state[i].push(current_token);
-                drop_the_rock();
+                game_state[i].push(current_player);
                 change_game_state();
                 current_token = current_player;
                 change_turn();
@@ -148,16 +148,6 @@ function rock() {
   if(current_token != 3) {
       current_player = current_token;
       current_token = 3;
-  }
-}
-
-function drop_the_rock() {
-  for(var i = 0; i < game_state.length; i++) {
-    for(var j = 0; j < game_state[i].length; j++) {
-      if(game_state[i][j] == 3){
-        game_state[i][j+1] = current_player;
-      }
-    }
   }
 }
 
