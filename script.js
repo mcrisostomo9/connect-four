@@ -81,6 +81,9 @@ function add_player_token() {
                 if(game_state[i][0] === '') {
                   game_state[i][0] = current_token;
                   game_state[i].push(current_player);
+                } else {
+                  game_state[i].push(current_token);
+                  game_state[i].push(current_player);
                 }
                 change_game_state();
                 rock_placed_audio();
@@ -93,12 +96,14 @@ function add_player_token() {
                 current_token = current_player;
                 return;
               }
-            }
-            if(current_player == 1) {
+            } else if(current_player == 1) {
               if (player2_rocks > 0) {
                 player2_rocks--;
                 if(game_state[i][0] === '') {
                   game_state[i][0] = current_token;
+                  game_state[i].push(current_player);
+                } else {
+                  game_state[i].push(current_token);
                   game_state[i].push(current_player);
                 }
                 change_game_state();
@@ -120,7 +125,6 @@ function add_player_token() {
 
                 if (game_state[i][0] === ""){
                     game_state[i][0] = current_token;
-                    console.log('bombs to the bottom! ', game_state[i][0])
                 }else{
                     game_state[i].push(current_token);
                 }
@@ -137,16 +141,14 @@ function add_player_token() {
                 return;
               } else {
                 turn_counter--;
-                  current_token = current_player;
-                  return;
+                current_token = current_player;
+                return;
               }
-            }
-          if (current_player == 1) {
-              if(player1_bombs > 0) {
+            } else if (current_player == 1) {
+              if(player2_bombs > 0) {
 
                   if (game_state[i][0] === ""){
                       game_state[i][0] = current_token;
-                      console.log('bombs to the bottom! ', game_state[i][0])
                   }else{
                       game_state[i].push(current_token);
                   }
@@ -163,8 +165,8 @@ function add_player_token() {
                   return;
               } else {
                 turn_counter--;
-                  current_token = current_player;
-                  return;
+                current_token = current_player;
+                return;
               }
             }
           }
