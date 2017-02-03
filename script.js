@@ -10,7 +10,7 @@ var player1_rocks = 1;
 var player2_rocks = 1;
 var current_player;
 var game_array = null;
-var game_state = [[''],[''],[''],[''],[''],[''],['']]; // game_state is used to track the position of all tokens on the board
+var game_state = [[],[],[],[],[],[],[]]; // game_state is used to track the position of all tokens on the board
 
 var countdown_date;
 var total_time = 120000;
@@ -58,7 +58,8 @@ function add_player_token() {
                 game_state[i].push(current_player);
                 change_game_state();
                 current_token = current_player;
-                change_turn();
+                  check_win_whole_board();
+                  change_turn();
                 return;
               }
             }
@@ -69,7 +70,8 @@ function add_player_token() {
                 game_state[i].push(current_player);
                 change_game_state();
                 current_token = current_player;
-                change_turn();
+                  check_win_whole_board();
+                  change_turn();
                 return;
               }
             }
@@ -77,7 +79,13 @@ function add_player_token() {
           if (current_token == 2) {
             if (current_player == 0) {
               if(player1_bombs > 0) {
-                game_state[i].push(current_token);
+
+                if (game_state[i][0] === ""){
+                    game_state[i][0] = current_token;
+                    console.log('bombs to the bottom! ', game_state[i][0])
+                }else{
+                    game_state[i].push(current_token);
+                }
                 player1_bombs = player1_bombs-1;
                 change_game_state();
                 setTimeout(function() {
@@ -92,26 +100,29 @@ function add_player_token() {
                   current_token = current_player;
               }
             }
-            if (current_player == 1) {
-              if(player2_bombs > 0) {
-                game_state[i].push(current_token);
-                player2_bombs = player2_bombs-1;
-                change_game_state();
-                setTimeout(function() {
-                  drop_the_bomb();
+          if (current_player == 1) {
+              if(player1_bombs > 0) {
+
+                  if (game_state[i][0] === ""){
+                      game_state[i][0] = current_token;
+                      console.log('bombs to the bottom! ', game_state[i][0])
+                  }else{
+                      game_state[i].push(current_token);
+                  }
+                  player2_bombs = player2_bombs-1;
                   change_game_state();
+                  setTimeout(function() {
+                      drop_the_bomb();
+                      change_game_state();
+                      current_token = current_player;
+                      check_win_whole_board();
+                      change_turn();
+                  }, 1500);
+                  return;
+              } else {
                   current_token = current_player;
-                  check_win_whole_board();
-                  change_turn();
-                }, 1500);
-                return;
-              } else{
-                current_token = current_player;
               }
             }
-            change_game_state();
-            check_win(i, game_state[i].length-1);
-            audio_piece_placed();
           }
           if (game_state[i][0] === "") {
               game_state[i][0] = current_token;
@@ -119,13 +130,12 @@ function add_player_token() {
           else {
               game_state[i].push(current_token);
           }
-      }
-          change_game_state();
           check_win(i, game_state[i].length-1);
-          audio_piece_placed();
+      }
+      change_game_state();
+      audio_piece_placed();
       }
     change_turn();
-    call_firebase();
 }
 
 
@@ -223,7 +233,7 @@ if counter hits 4, it called the function winner because the game is over
 function check_horizontal(col, row) {
   var counter=1;
   var i = 1;
-  while( (col-i) >= 0 && game_state[col][row] == game_state[col-i][row]) {
+  while( (col-i) >= 0 && game_state[col][row] === game_state[col-i][row]) {
     counter++;
     i++;
     if (counter == 4) {
@@ -231,7 +241,7 @@ function check_horizontal(col, row) {
     }
   }
   i = 1;
-  while( (col+i) < game_state.length && game_state[col][row] == game_state[col+i][row]) {
+  while( (col+i) < game_state.length && game_state[col][row] === game_state[col+i][row]) {
     counter++;
     i++;
     if (counter == 4) {
@@ -247,7 +257,7 @@ if counter hits 4, it called the function winner because the game is over
 function check_vertical(col, row) {
   var counter = 1;
   var i = 1;
-  while( (row-i) >= 0 && game_state[col][row] == game_state[col][row-i]) {
+  while( (row-i) >= 0 && game_state[col][row] === game_state[col][row-i]) {
     counter++;
     i++;
     if (counter == 4) {
@@ -256,7 +266,7 @@ function check_vertical(col, row) {
     }
   }
   i = 1;
-  while( (row+i) < game_state.length && game_state[col][row] == game_state[col][row+i]) {
+  while( (row+i) < game_state.length && game_state[col][row] === game_state[col][row+i]) {
     counter++;
     i++;
     if (counter == 4) {
@@ -274,7 +284,7 @@ if counter hits 4, call winner
 function check_diagonal(col, row) {
   var counter = 1;
   var i = 1;
-  while( (col-i) >= 0 && (row - i) >= 0 && game_state[col][row] == game_state[col-i][row-i]) {
+  while( (col-i) >= 0 && (row - i) >= 0 && game_state[col][row] === game_state[col-i][row-i]) {
     counter++;
     i++;
     if (counter == 4) {
@@ -282,16 +292,16 @@ function check_diagonal(col, row) {
     }
   }
   i = 1;
-  while( (col+i) < game_state.length && (row + i) <= 5 && game_state[col][row] == game_state[col+i][row+i]) {
+  while( (col+i) < game_state.length && (row + i) <= 5 && game_state[col][row] === game_state[col+i][row+i]) {
     counter++;
-    i++
+    i++;
     if (counter == 4) {
       winner(game_state[col][row]+1);
     }
   }
   counter = 1;
   i = 1;
-  while ((col-i) >= 0 && (row+i) <=5 && game_state[col][row] == game_state[col-i][row+i]) {
+  while ((col-i) >= 0 && (row+i) <=5 && game_state[col][row] === game_state[col-i][row+i]) {
     counter++;
     i++;
     if (counter == 4) {
@@ -299,9 +309,9 @@ function check_diagonal(col, row) {
     }
   }
   i = 1;
-  while( (col+i) < game_state.length && (row-i) >= 0 && game_state[col][row] == game_state[col+i][row-i]) {
+  while( (col+i) < game_state.length && (row-i) >= 0 && game_state[col][row] === game_state[col+i][row-i]) {
     counter++;
-    i++
+    i++;
     if (counter == 4) {
       winner(game_state[col][row]+1);
     }
@@ -315,6 +325,7 @@ will create modal with winner and loser, use firebase to tell the winner they wo
 */
 function winner(player) {
   console.log("player" + player + ' is the winner');
+  setTimeout(alert(player + "is the winner"));
 }
 
 /* function: reset_game
@@ -349,6 +360,7 @@ function change_turn() {
         $('.current-player-icon').attr("src", "graphics/2PToken.png");
 
     }
+    call_firebase();
 }
 
 /* function: start_timer
@@ -438,7 +450,7 @@ function audio_piece_placed() {
 
 //firebase
 
-var Connect4Model = new GenericFBModel('newtest4',boardUpdated);
+var Connect4Model = new GenericFBModel('poopoohead',boardUpdated);
 var cavity_game ={};
 function boardUpdated(data){
     console.log('data of callback function', data);
