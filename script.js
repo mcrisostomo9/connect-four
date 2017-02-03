@@ -35,6 +35,7 @@ function initialize_game() {
     $('.use-bomb').click(bomb);
     $('.use-rock').click(rock);
     $("#start-modal").modal();
+    local_play_check();
 
 }
 
@@ -468,6 +469,9 @@ function boardUpdated(data){
 }
 
 function call_firebase() {
+    if(local_play){
+        return;
+    }
     var cavity_game = {
         player: current_token,
         current_state: game_state,
@@ -475,6 +479,17 @@ function call_firebase() {
     };
     console.log("before being sent: ", cavity_game);
     Connect4Model.saveState(cavity_game);
+}
+
+function local_play_check(){
+    $('.btn-group').on('click', 'button', function(){
+        $('button').removeClass('active');
+        if ($(this).text() === "Local"){
+            local_play = true;}
+        else{
+            local_play = false;
+            }
+    });
 }
 
 function reset_firebase(){
