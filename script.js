@@ -22,6 +22,8 @@ var local_play = true;
 var first_player = false;
 var turn_counter = 1;
 
+var muted = false;
+
 $(document).ready(initialize_game);
 
 /* function: initialize_game
@@ -40,6 +42,7 @@ function initialize_game() {
     $('.use-rock').click(rock);
     $("#start-modal").modal();
     local_play_check();
+    $('.mute').click(mute_audio);
 }
 
 /* Function: add_player_token
@@ -80,6 +83,7 @@ function add_player_token() {
                   game_state[i].push(current_player);
                 }
                 change_game_state();
+                rock_placed_audio();
                 current_token = current_player;
                 check_win_whole_board();
                 change_turn();
@@ -98,6 +102,7 @@ function add_player_token() {
                   game_state[i].push(current_player);
                 }
                 change_game_state();
+                rock_placed_audio();
                 current_token = current_player;
                   check_win_whole_board();
                   change_turn();
@@ -121,6 +126,7 @@ function add_player_token() {
                 }
                 player1_bombs = player1_bombs-1;
                 change_game_state();
+                bomb_placed_audio();
                 setTimeout(function() {
                     drop_the_bomb();
                     change_game_state();
@@ -146,6 +152,7 @@ function add_player_token() {
                   }
                   player2_bombs = player2_bombs-1;
                   change_game_state();
+                  bomb_placed_audio();
                   setTimeout(function() {
                       drop_the_bomb();
                       change_game_state();
@@ -408,7 +415,6 @@ function winner(player) {
   $winner_figure.append($winner_img, $winner_figcap);
   $('.winner-display').append($winner_figure);
   $('#end-modal').modal();
-  winning_audio();
   console.log("player" + player + ' is the winner');
 }
 
@@ -432,6 +438,8 @@ function reset_game() {
   start_timer();
   change_game_state();
   reset_firebase();
+    $('#background_audio').get(0).play();
+
 }
 
 /* function: change_turn
@@ -536,7 +544,6 @@ function audio_piece_placed() {
     }
 }
 
-//FIREBASE
 function rock_placed_audio() {
     $('#rock_audio').get(0).play();
 }
@@ -544,8 +551,20 @@ function rock_placed_audio() {
 function bomb_placed_audio() {
     $('#bomb_audio').get(0).play();
 }
+function mute_audio() {
+    if (muted === false) {
+        $('#background_audio').get(0).pause();
+        $('.mute').text('UNMUTE');
+        muted = true;
+    }else{
+        $('#background_audio').get(0).play();
+        $('.mute').text('MUTE');
+        muted = false;
+    }
+}
 
 function winning_audio() {
+    $('#background_audio').get(0).pause();
     $('#winner_audio').get(0).play();
 }
 
