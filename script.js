@@ -58,24 +58,34 @@ function add_player_token() {
             if(current_player == 0) {
               if (player1_rocks > 0) {
                 player1_rocks--;
-                game_state[i].push(current_token);
-                game_state[i].push(current_player);
+                if(game_state[i][0] === '') {
+                  game_state[i][0] = current_token;
+                  game_state[i].push(current_player);
+                }
                 change_game_state();
                 current_token = current_player;
-                  check_win_whole_board();
-                  change_turn();
+                check_win_whole_board();
+                change_turn();
+                return;
+              } else {
+                current_token = current_player;
                 return;
               }
             }
             if(current_player == 1) {
               if (player2_rocks > 0) {
                 player2_rocks--;
-                game_state[i].push(current_token);
-                game_state[i].push(current_player);
+                if(game_state[i][0] === '') {
+                  game_state[i][0] = current_token;
+                  game_state[i].push(current_player);
+                }
                 change_game_state();
                 current_token = current_player;
                   check_win_whole_board();
                   change_turn();
+                return;
+              } else {
+                current_token = current_player;
                 return;
               }
             }
