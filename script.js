@@ -16,7 +16,10 @@ var countdown_date;
 var timer_reference;
 var time_left = [60000,60000];
 
+var networkgame_data = {};
 var local_play = true;
+var first_player = false;
+var turn_counter = 1;
 
 $(document).ready(initialize_game);
 
@@ -36,7 +39,6 @@ function initialize_game() {
     $('.use-rock').click(rock);
     $("#start-modal").modal();
     local_play_check();
-
 }
 
 /* Function: add_player_token
@@ -47,6 +49,20 @@ check for win
 call function to play sound for piece played
 */
 function add_player_token() {
+    if (!local_play){
+        if (turn_counter%2 !== 0){
+            if (!first_player){
+                return;
+            }
+        }
+        else if (turn_counter%2 == 0){
+            if (first_player){
+                return;
+            }
+        }
+    }
+    turn_counter++;
+
   for (var i = 0; i < 7; i++) {
       if (this == game_array[i]) {
           if (game_state[i].length > 5) {
@@ -455,28 +471,40 @@ function audio_piece_placed() {
 
 //FIREBASE
 
-var Connect4Model = new GenericFBModel('poopoohead',boardUpdated);
+var Connect4Model = new GenericFBModel('poopoopoohead',boardUpdated);
 var cavity_game ={};
 function boardUpdated(data){
     console.log('data of callback function', data);
     if (data === null){
         return;
     }
+    networkgame_data = data;
     game_state = data.current_state;
     console.log('game_state after callback:', game_state);
     current_token = data.player;
+    turn_counter = data.turn_count;
     change_game_state();
+    console.log('i am first player', first_player);
+
 }
 
 function call_firebase() {
     if(local_play){
         return;
     }
+
     var cavity_game = {
         player: current_token,
         current_state: game_state,
-        time: time_left
+        time: time_left,
+        first_player: false,
+        turn_count: turn_counter
     };
+
+    if (!networkgame_data.first_player){
+        cavity_game.first_player =  true;
+        first_player = true;
+    }
     console.log("before being sent: ", cavity_game);
     Connect4Model.saveState(cavity_game);
 }
@@ -488,15 +516,31 @@ function local_play_check(){
             local_play = true;}
         else{
             local_play = false;
-            }
+            $('#first-player').modal();
+        }
     });
+    first_player_check();
 }
 
 function reset_firebase(){
     cavity_game = {
         player: 0,
         current_state: [[''],[''],[''],[''],[''],[''],['']],
-        time: [12000, 12000]
+        time: [12000, 12000],
+        turn_count: 1,
     };
     Connect4Model.saveState(cavity_game);
+}
+
+function first_player_check(){
+    console.log('this is being run');
+    $('#first-player .yes, #first-player .no').click(function(){
+        if ($(this).text() === "Yes"){
+            first_player = true;
+        }
+        else{
+            first_player = false;
+        }
+        console.log('i am first player : ', first_player);
+    });
 }
