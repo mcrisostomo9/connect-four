@@ -8,6 +8,7 @@ var player1_bombs = 1;
 var player2_bombs = 1;
 var player1_rocks = 1;
 var player2_rocks = 1;
+var winner = false;
 var current_player;
 var game_array = null;
 var game_state = [[''],[''],[''],[''],[''],[''],['']]; // game_state is used to track the position of all tokens on the board
@@ -146,17 +147,17 @@ function drop_the_bomb() {
     for(var j = 0; j < game_state[i].length; j++) {
       if(game_state[i][j] == 2){
         if(game_state[i].length <= 2) {
-          game_state[i].splice(j);
+          game_state[i].splice(j-1);
         } else {
           game_state[i].splice(j-1, 3);
         }
         if(game_state[i-1].length <= 3) {
-          game_state[i-1].splice(j);
+          game_state[i-1].splice(j-1);
         } else {
           game_state[i-1].splice(j-1, 3);
         }
         if(game_state[i+1].length <= 3) {
-          game_state[i+1].splice(j);
+          game_state[i+1].splice(j-1);
         } else {
           game_state[i+1].splice(j-1, 3);
         }
@@ -217,8 +218,12 @@ function check_win(col, row) {
 loops through the whole game state array, and checks for four in a row for each token on the board
 */
 function check_win_whole_board () {
-  for(var i = 0; i < game_state.length; i++) {
-    for(var j = 0; j < game_state[i].length; j++) {
+  debugger;
+  for(var i = 0; i < game_state.length-1; i++) {
+    for(var j = 0; j < game_state[i].length-1; j++) {
+      if(winner = true) {
+        return;
+      }
       check_diagonal(i, j);
       check_vertical(i, j);
       check_horizontal(i, j);
@@ -325,25 +330,26 @@ will create modal with winner and loser, use firebase to tell the winner they wo
 !!NOT FINISHED
 */
 function winner(player) {
-    pause_timer();
-    var winner_img = function(){
-        switch (current_token){
-            case 0:
-                return 'graphics/blueToken.png';
-            case 1:
-                return 'graphics/2PToken.png';
-        }
-    };
-    var $winner_figure = $('<figure>');
-    var $winner_img = $('<img>',{
-        src: winner_img(),
-        alt: 'player token'
-    });
-    var $winner_figcap = $('<figcaption>').text('Player ' + (current_token+1));
+  winner = true;
+  pause_timer();
+  var winner_img = function(){
+      switch (current_token){
+          case 0:
+              return 'graphics/blueToken.png';
+          case 1:
+              return 'graphics/2PToken.png';
+      }
+  };
+  var $winner_figure = $('<figure>');
+  var $winner_img = $('<img>',{
+      src: winner_img(),
+      alt: 'player token'
+  });
+  var $winner_figcap = $('<figcaption>').text('Player ' + (current_token+1));
 
-    $winner_figure.append($winner_img, $winner_figcap);
-    $('.winner-display').append($winner_figure);
-    $('#end-modal').modal();
+  $winner_figure.append($winner_img, $winner_figcap);
+  $('.winner-display').append($winner_figure);
+  $('#end-modal').modal();
 }
 
 /* function: reset_game
@@ -353,6 +359,7 @@ set current_token to 0
 call function change_game_state to reset the board to empty
 */
 function reset_game() {
+  winner = false;
   game_state = [[''],[''],[''],[''],[''],[''],['']];
   $('*').removeClass('p2-token p1-token played');
   current_token = 0;
@@ -483,6 +490,11 @@ function boardUpdated(data){
 }
 
 function call_firebase() {
+  for(var i = 0; i < game_state.length-1; i++) {
+    if(game_state[i][0] === undefined) {
+      game_state[i][0] = '';
+    }
+  }
     var cavity_game = {
         player: current_token,
         current_state: game_state,
