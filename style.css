@@ -1,6 +1,6 @@
 body{
     font-size:0;
-    background: url('graphics/mountain_background.jpg') no-repeat bottom;
+    background: url('Graphics/mountain_background.jpg') no-repeat bottom;
     height:100vh;
     margin:0;
 }
@@ -102,7 +102,7 @@ img{
     width: 100%;
     height: 100%;
     #border: 2px black solid;
-    #background: gray url("graphics/_ground/ground07.png") no-repeat;
+    #background: gray url("Graphics/_ground/ground07.png") no-repeat;
     background-size: cover;
     position:relative;
 }
@@ -171,13 +171,13 @@ img{
 .p1-token {
     width:100%;
     height:100%;
-    background:url("graphics/blueToken.png") no-repeat;
+    background:url("Graphics/blueToken.png") no-repeat;
     background-size:cover;
 }
 .p2-token{
     width:100%;
     height:100%;
-    background:url("graphics/2PToken.png") no-repeat;
+    background:url("Graphics/2PToken.png") no-repeat;
     background-size:cover;
 }
 .reset-div{
@@ -215,71 +215,71 @@ img{
 /*TILESET 1 */
 
 .cell{
-    background:url("graphics/_ground/ground05.png") no-repeat bottom;
+    background:url("Graphics/_ground/ground05.png") no-repeat bottom;
     background-size:contain !important;
 }
 
 .cell:nth-child(1){
-    background: url("graphics/_rocky/rocky01.png") no-repeat bottom;
+    background: url("Graphics/_rocky/rocky01.png") no-repeat bottom;
 }
 .cell:nth-child(6){
-    background: url("graphics/_leafy ground/leafy_ground01.png") no-repeat bottom;
+    background: url("Graphics/_leafy ground/leafy_ground01.png") no-repeat bottom;
 }
 .cell:nth-child(7){
     background:none;
 }
 .column1 .cell:nth-child(7), .column2 .cell:nth-child(7), .column5 .cell:nth-child(7){
-    background: url("graphics/_aboveground/tree01.png") no-repeat bottom;
+    background: url("Graphics/_aboveground/tree01.png") no-repeat bottom;
 }
 .column3 .cell:nth-child(7), .column6 .cell:nth-child(7){
-    background: url("graphics/_aboveground/tree02.png") no-repeat bottom;
+    background: url("Graphics/_aboveground/tree02.png") no-repeat bottom;
 }
 .column4 .cell:nth-child(7), .column7 .cell:nth-child(7){
-    background: url("graphics/_aboveground/tree03.png") no-repeat bottom;
+    background: url("Graphics/_aboveground/tree03.png") no-repeat bottom;
 }
 .column2 .cell:nth-child(4){
-    background: url("graphics/_hollow/hollow06.png") no-repeat bottom;
+    background: url("Graphics/_hollow/hollow06.png") no-repeat bottom;
 }
 .column2 .cell:nth-child(5){
-    background: url("graphics/_hollow/hollow13.png") no-repeat bottom;
+    background: url("Graphics/_hollow/hollow13.png") no-repeat bottom;
 }
 .column2 .cell:nth-child(6){
-    background: url("graphics/_leafy hollow/leafy_hollow01.png") no-repeat bottom;
+    background: url("Graphics/_leafy hollow/leafy_hollow01.png") no-repeat bottom;
 }
 .column3 .cell:nth-child(6){
-    background: url("graphics/_leafy hollow/leafy_hollow02.png") no-repeat bottom;
+    background: url("Graphics/_leafy hollow/leafy_hollow02.png") no-repeat bottom;
 }
 .column3 .cell:nth-child(4){
-    background: url("graphics/_hollow/hollow10.png") no-repeat bottom;
+    background: url("Graphics/_hollow/hollow10.png") no-repeat bottom;
 }
 .column3 .cell:nth-child(5){
-    background: url("graphics/_hollow/hollow14.png") no-repeat bottom;
+    background: url("Graphics/_hollow/hollow14.png") no-repeat bottom;
 }
 .column4 .cell:nth-child(2){
-    background: url("graphics/_hollow/hollow06.png") no-repeat bottom;
+    background: url("Graphics/_hollow/hollow06.png") no-repeat bottom;
 }
 .column4 .cell:nth-child(3){
-    background: url("graphics/_hollow/hollow13.png") no-repeat bottom;
+    background: url("Graphics/_hollow/hollow13.png") no-repeat bottom;
 }
 .column4 .cell:nth-child(4){
-    background: url("graphics/_hollow/hollow07.png") no-repeat bottom;
+    background: url("Graphics/_hollow/hollow07.png") no-repeat bottom;
 }
 .column6 .cell:nth-child(4){
-    background: url("graphics/_hollow/hollow09.png") no-repeat bottom;
+    background: url("Graphics/_hollow/hollow09.png") no-repeat bottom;
 }
 .column6 .cell:nth-child(2){
-    background: url("graphics/_hollow/hollow10.png") no-repeat bottom;
+    background: url("Graphics/_hollow/hollow10.png") no-repeat bottom;
 }
 .column6 .cell:nth-child(3) {
-    background: url("graphics/_hollow/hollow14.png") no-repeat bottom;
+    background: url("Graphics/_hollow/hollow14.png") no-repeat bottom;
 }
 .column5 .cell:nth-child(2){
-    background: url("graphics/_hollow/hollow15.png") no-repeat bottom;
+    background: url("Graphics/_hollow/hollow15.png") no-repeat bottom;
 }
 .column5 .cell:nth-child(3){
-    background: url("graphics/_hollow/hollow middle.png") no-repeat bottom;
+    background: url("Graphics/_hollow/hollow middle.png") no-repeat bottom;
 }
 .column5 .cell:nth-child(4){
-    background: url("graphics/_hollow/hollow08.png") no-repeat bottom;
+    background: url("Graphics/_hollow/hollow08.png") no-repeat bottom;
 
 }
