@@ -6,6 +6,8 @@
 var current_token = 0; //0 is player 1, 1 is player 2, 3 is bomb
 var player1_bombs = 1;
 var player2_bombs = 1;
+var player1_rocks = 1;
+var player2_rocks = 1;
 var current_player;
 var game_array = null;
 var game_state = [[''],[''],[''],[''],[''],[''],['']]; // game_state is used to track the position of all tokens on the board
@@ -32,6 +34,7 @@ function initialize_game() {
     timer_button_handler();
     $('#reset').click(reset_game);
     $('.use-bomb').click(bomb);
+    $('.use-rock').click(rock);
 }
 
 /* Function: add_player_token
@@ -46,6 +49,30 @@ function add_player_token() {
       if (this == game_array[i]) {
           if (game_state[i].length > 5) {
               return;
+          }
+          if(current_token == 3) {
+            if(current_player == 0) {
+              if (player1_rocks > 0) {
+                player1_rocks--;
+                game_state[i].push(current_token);
+                game_state[i].push(current_player);
+                change_game_state();
+                current_token = current_player;
+                change_turn();
+                return;
+              }
+            }
+            if(current_player == 1) {
+              if (player2_rocks > 0) {
+                player2_rocks--;
+                game_state[i].push(current_token);
+                game_state[i].push(current_player);
+                change_game_state();
+                current_token = current_player;
+                change_turn();
+                return;
+              }
+            }
           }
           if (current_token == 2) {
             if (current_player == 0) {
@@ -107,11 +134,30 @@ function drop_the_bomb() {
   for(var i = 0; i < game_state.length; i++) {
     for(var j = 0; j < game_state[i].length; j++) {
       if(game_state[i][j] == 2){
-        game_state[i].splice(j-1, 3);
-        game_state[i-1].splice(j-1,3 );
-        game_state[i+1].splice(j-1, 3);
+        if(game_state[i].length <= 2) {
+          game_state[i].splice(j);
+        } else {
+          game_state[i].splice(j-1, 3);
+        }
+        if(game_state[i-1].length <= 3) {
+          game_state[i-1].splice(j);
+        } else {
+          game_state[i-1].splice(j-1, 3);
+        }
+        if(game_state[i+1].length <= 3) {
+          game_state[i+1].splice(j);
+        } else {
+          game_state[i+1].splice(j-1, 3);
+        }
       }
     }
+  }
+}
+
+function rock() {
+  if(current_token != 3) {
+      current_player = current_token;
+      current_token = 3;
   }
 }
 
@@ -130,7 +176,7 @@ function change_game_state () {
   for(var i = 0; i < 7; i++) {
     for(var j = 0; j < 6; j++) {
       if(game_state[i][j] == undefined) {
-        $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').removeClass('p2-token played p1-token bomb bomb-token played')
+        $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').removeClass('p2-token played p1-token bomb bomb-token played rock rock-token')
       }
       if(game_state[i][j] === 1) {
         $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('p2-token played');
@@ -138,6 +184,8 @@ function change_game_state () {
         $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('p1-token played');
       } else if(game_state[i][j] === 2){
         $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('bomb bomb-token played');
+      } else if(game_state[i][j] == 3){
+        $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').addClass('rock rock-token played');
       }
     }
   }
