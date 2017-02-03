@@ -52,11 +52,11 @@ function add_player_token() {
                 player1_bombs = player1_bombs-1;
                 change_game_state();
                 setTimeout(function() {
-                  drop_the_bomb();
-                  change_game_state();
-                  check_win(i, game_state[i].length-1);
-                  current_token = current_player;
-                  change_turn();
+                    drop_the_bomb();
+                    change_game_state();
+                    current_token = current_player;
+                    check_win_whole_board();
+                change_turn();
                 }, 1500);
                 return;
               } else {
@@ -71,8 +71,8 @@ function add_player_token() {
                 setTimeout(function() {
                   drop_the_bomb();
                   change_game_state();
-                  check_win(i, game_state[i].length-1);
                   current_token = current_player;
+                  check_win_whole_board();
                   change_turn();
                 }, 1500);
                 return;
@@ -106,13 +106,15 @@ function drop_the_bomb() {
 }
 
 function bomb() {
-  current_player = current_token;
-  current_token = 2;
+    if(current_token != 2) {
+        current_player = current_token;
+        current_token = 2;
+    }
 }
 
 /* function: change_game_state
  used to display the pieces on the board
- Use seudo selectors to add a class of either p1-token or p2-token depending on the current player
+ Use pseudo selectors to add a class of either p1-token or p2-token depending on the current player
 */
 function change_game_state () {
   for(var i = 0; i < 7; i++) {
