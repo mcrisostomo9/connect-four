@@ -146,12 +146,12 @@ function drop_the_bomb() {
     for(var j = 0; j < game_state[i].length; j++) {
       if(game_state[i][j] == 2){
         if(game_state[i].length <= 2) {
-          game_state[i].splice(j);
+          game_state[i].splice(0);
         } else {
           game_state[i].splice(j-1, 3);
         }
         if(game_state[i-1].length <= 3) {
-          game_state[i-1].splice(j);
+          game_state[i-1].splice(0);
         } else {
           game_state[i-1].splice(j-1, 3);
         }
@@ -468,6 +468,11 @@ function boardUpdated(data){
 }
 
 function call_firebase() {
+  for(var i = 0; i < game_state.length-1; i++) {
+    if(game_state[i][0] === undefined) {
+      game_state[i][0] = '';
+    }
+  }
     var cavity_game = {
         player: current_token,
         current_state: game_state,
