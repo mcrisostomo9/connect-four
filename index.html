@@ -13,6 +13,7 @@
     <script src="genericFirebaseBackend.js"></script>
     <script src="script.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Bahiana" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
 
@@ -27,7 +28,7 @@
         <div class="player-panel player1">
             <div>Player 1</div>
             <div>Time Left: </div>
-            <div class="timer0">2:00</div>
+            <div class="timer0"> </div>
             <div class="piece-container"><p class="use-bomb">Use Bomb</p><p class="use-rock">Use Rock</p></div>
             <div>Wins: <span class="player1-wins-record"></span></div>
         </div>
@@ -188,16 +189,72 @@
         <div class="player-panel player2">
             <div>Player 2</div>
             <div>Time Left: </div>
-            <div class="timer1">2:00</div>
+            <div class="timer1"> </div>
             <div class="piece-container"><p class="use-bomb">Use Bomb</p><p class="use-rock">Use Rock</p></div>
             <div>Wins: <span class="player2-wins-record"></span></div>
         </div>
     </div>
     <div class="current-player-panel">
-        <div class="current-player-panel-content">Current Player: <img class="current-player-icon" src="graphics/blueToken.png" alt="Player 1"></div>
+        <div class="current-player-panel-content">Current Player <img class="current-player-icon" src="graphics/blueToken.png" alt="Player 1"></div>
     </div>
 </div>
-<div class="reset-div"><button id="reset">RESET</button><button class="start-button">START GAME</button><button class="pause">PAUSE</button></div>
+<div class="reset-div"><button class="start-button btn btn-warning">START</button> <button class="pause btn btn-warning">PAUSE</button> <button class = "reset btn btn-warning">RESET</button></div>
+
+/* START MODAL
+<div id="start-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="actual-modal-content">
+                <div>
+                    <h3>Welcome to...</h3>
+                    <h2>CAVITY SEARCH!!</h2>
+                    <h4>You and your opponent are competing to link four of your adventurers! Be the first to escape!</h4>
+                </div>
+                <div class="player-image-container">
+                    <figure>
+                        <img src="graphics/blueToken.png" alt="P1">
+                        <figcaption>Player 1</figcaption>
+                    </figure>
+                    <div>VS</div>
+                    <figure>
+                        <img src="graphics/2PToken.png" alt="P2">
+                        <figcaption>Player 2</figcaption>
+                    </figure>
+                </div>
+                <h4>Time is limited, so act quickly! The clock starts ticking as soon as you start the game!</h4>
+                <div><button class = "start-button reset btn btn-lg btn-warning" data-dismiss="modal">START GAME!</button></div>
+                <div class="btn-group">
+                    <button class="btn btn-primary">Local</button>
+                    <button class="btn btn-primary">Network</button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+/* END MODAL
+
+<div id="end-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="actual-modal-content">
+                <div>
+                    <h3>And the winner is...</h3>
+                    <div class="winner-display"></div>
+                    <h4>Thanks for playing...</h4>
+                    <h2>CAVITY SEARCH!!</h2>
+                </div>
+                <div><button class = "start-button reset btn btn-lg btn-warning" data-dismiss="modal">RESTART GAME!</button></div>
+                <div class="btn-group">
+                    <button class="btn btn-primary">Local</button>
+                    <button class="btn btn-primary">Network</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
 <!--For piece placed audio-->
 <audio src="audio/gem3.wav" id="piece_audio1"></audio>
@@ -210,6 +267,7 @@
 
 <!--backfround music-->
 <audio src="audio/Spelunky%20Entrance%20Theme%20Song.mp3" autoplay loop="false"></audio>
+
 
 </body>
 </html>
