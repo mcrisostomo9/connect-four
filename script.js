@@ -350,12 +350,6 @@ function winner(player) {
   $winner_figure.append($winner_img, $winner_figcap);
   $('.winner-display').append($winner_figure);
   $('#end-modal').modal();
-<<<<<<< HEAD
-=======
-  winning_audio();
-  console.log("player" + player + ' is the winner');
-  setTimeout(alert(player + "is the winner"));
->>>>>>> ce71b617ac42eac3e536a5294b0656bb991e5785
 }
 
 /* function: reset_game
@@ -465,13 +459,8 @@ function audio_piece_placed() {
     }
 }
 
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
 //FIREBASE
-=======
->>>>>>> ce71b617ac42eac3e536a5294b0656bb991e5785
+
 function rock_placed_audio() {
     $('#rock_audio').get(0).play();
 }
@@ -484,14 +473,9 @@ function winning_audio() {
     $('#winner_audio').get(0).play();
 }
 
-<<<<<<< HEAD
 
-//FIREBASE
-
-=======
 //firebase
->>>>>>> more-sounds
->>>>>>> ce71b617ac42eac3e536a5294b0656bb991e5785
+
 
 var Connect4Model = new GenericFBModel('poopoohead',boardUpdated);
 var cavity_game ={};
