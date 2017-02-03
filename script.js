@@ -86,15 +86,22 @@ function add_player_token() {
             check_win(i, game_state[i].length-1);
             audio_piece_placed();
           }
-          game_state[i].push(current_token);
+          if (game_state[i][0] === "") {
+              game_state[i][0] = current_token;
+          }
+          else {
+              game_state[i].push(current_token);
+          }
+      }
           change_game_state();
           check_win(i, game_state[i].length-1);
           audio_piece_placed();
       }
-  }
-  change_turn();
-  call_firebase();
+    change_turn();
+    call_firebase();
 }
+
+
 
 function drop_the_bomb() {
   for(var i = 0; i < game_state.length; i++) {
@@ -273,6 +280,7 @@ function reset_game() {
   $('*').removeClass('p2-token p1-token played');
   current_token = 0;
   change_game_state();
+  reset_firebase();
 }
 
 /* function: change_turn
@@ -383,7 +391,7 @@ function audio_piece_placed() {
 //firebase
 
 var Connect4Model = new GenericFBModel('newtest4',boardUpdated);
-
+var cavity_game ={};
 function boardUpdated(data){
     console.log('data of callback function', data);
     if (data === null){
@@ -402,6 +410,15 @@ function call_firebase() {
         time: time_left
     };
     console.log("before being sent: ", cavity_game);
+    Connect4Model.saveState(cavity_game);
+}
+
+function reset_firebase(){
+    cavity_game = {
+        player: 0,
+        current_state: [[''],[''],[''],[''],[''],[''],['']],
+        time: [12000, 12000]
+    };
     Connect4Model.saveState(cavity_game);
 }
 
