@@ -462,9 +462,7 @@ function audio_piece_placed() {
     }
 }
 
-<<<<<<< HEAD
 //FIREBASE
-=======
 function rock_placed_audio() {
     $('#rock_audio').get(0).play();
 }
@@ -478,7 +476,6 @@ function winning_audio() {
 }
 
 //firebase
->>>>>>> more-sounds
 
 var Connect4Model = new GenericFBModel('poopoohead',boardUpdated);
 var cavity_game ={};
