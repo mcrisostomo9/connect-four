@@ -8,6 +8,7 @@ var player1_bombs = 1;
 var player2_bombs = 1;
 var player1_rocks = 1;
 var player2_rocks = 1;
+var the_winner = false;
 var current_player;
 var game_array = null;
 var game_state = [[''],[''],[''],[''],[''],[''],['']]; // game_state is used to track the position of all tokens on the board
@@ -44,6 +45,8 @@ function initialize_game() {
 /* Function: add_player_token
 for loop to loop through and compare the element clicked to all columns, used to determine which column was clicked on
 push the current players token to game_state[the_column]
+if current token is 3 it adds a rock, then the player who used the rock
+if current token is 2, it adds a bomb, then uses a timeout to detonate the bomb after it has lande
 call function to change game state, used to update the game board in browser with the changes
 check for win
 call function to play sound for piece played
@@ -72,24 +75,36 @@ function add_player_token() {
             if(current_player == 0) {
               if (player1_rocks > 0) {
                 player1_rocks--;
-                game_state[i].push(current_token);
-                game_state[i].push(current_player);
+                if(game_state[i][0] === '') {
+                  game_state[i][0] = current_token;
+                  game_state[i].push(current_player);
+                }
                 change_game_state();
                 current_token = current_player;
-                  check_win_whole_board();
-                  change_turn();
+                check_win_whole_board();
+                change_turn();
+                return;
+              } else {
+                turn_counter--;
+                current_token = current_player;
                 return;
               }
             }
             if(current_player == 1) {
               if (player2_rocks > 0) {
                 player2_rocks--;
-                game_state[i].push(current_token);
-                game_state[i].push(current_player);
+                if(game_state[i][0] === '') {
+                  game_state[i][0] = current_token;
+                  game_state[i].push(current_player);
+                }
                 change_game_state();
                 current_token = current_player;
                   check_win_whole_board();
                   change_turn();
+                return;
+              } else {
+                turn_counter--;
+                current_token = current_player;
                 return;
               }
             }
@@ -115,7 +130,9 @@ function add_player_token() {
                 }, 1500);
                 return;
               } else {
+                turn_counter--;
                   current_token = current_player;
+                  return;
               }
             }
           if (current_player == 1) {
@@ -138,7 +155,9 @@ function add_player_token() {
                   }, 1500);
                   return;
               } else {
+                turn_counter--;
                   current_token = current_player;
+                  return;
               }
             }
           }
@@ -156,32 +175,51 @@ function add_player_token() {
     change_turn();
 }
 
-
-
+/* function: drop_the_bomb
+called after bomb is dropped
+loops through game_state looking for a bomb and splices all surrounding game tokens
+calls add_empty_strings to make sure arrays are not empty
+*/
 function drop_the_bomb() {
   for(var i = 0; i < game_state.length; i++) {
     for(var j = 0; j < game_state[i].length; j++) {
       if(game_state[i][j] == 2){
         if(game_state[i].length <= 2) {
-          game_state[i].splice(j);
+          game_state[i].splice(0);
+          game_state[i-1].splice(0, 3);
+          game_state[i+1].splice(0, 3);
         } else {
-          game_state[i].splice(j-1, 3);
-        }
-        if(game_state[i-1].length <= 3) {
-          game_state[i-1].splice(j);
-        } else {
-          game_state[i-1].splice(j-1, 3);
-        }
-        if(game_state[i+1].length <= 3) {
-          game_state[i+1].splice(j);
-        } else {
-          game_state[i+1].splice(j-1, 3);
+          if((j-1) >= 0) {
+            game_state[i].splice(j-1, 3);
+            game_state[i+1].splice(j-1, 3);
+            game_state[i-1].splice(j-1, 3);
+          } else {
+            game_state[i].splice(j, 2);
+            game_state[i+1].splice(j, 2);
+            game_state[i-1].splice(j, 2);
+          }
         }
       }
     }
   }
+  add_empty_strings();
 }
 
+/* function: add_empty_strings
+adds an empty string to any empty array. if we do not, firebase will remove the array breaking the game
+*/
+function add_empty_strings() {
+  for(var i = 0; i < game_state.length-1; i++) {
+    if(!(game_state[i].length >= 1)) {
+      game_state[i][0] = '';
+    }
+  }
+}
+
+/* function: rock
+stores the current player in current_player
+changes current_token to 3 to signal it is a rock
+*/
 function rock() {
   if(current_token != 3) {
       current_player = current_token;
@@ -189,6 +227,10 @@ function rock() {
   }
 }
 
+/* function: bomb
+stores the current player in current_player
+changes current_token to 2 to signal it is a bomb
+*/
 function bomb() {
     if(current_token != 2) {
         current_player = current_token;
@@ -203,7 +245,7 @@ function bomb() {
 function change_game_state () {
   for(var i = 0; i < 7; i++) {
     for(var j = 0; j < 6; j++) {
-      if(game_state[i][j] == undefined) {
+      if(game_state[i][j] == undefined || game_state[i][j] === '') {
         $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').removeClass('p2-token played p1-token bomb bomb-token played rock rock-token')
       }
       if(game_state[i][j] === 1) {
@@ -234,8 +276,12 @@ function check_win(col, row) {
 loops through the whole game state array, and checks for four in a row for each token on the board
 */
 function check_win_whole_board () {
-  for(var i = 0; i < game_state.length; i++) {
-    for(var j = 0; j < game_state[i].length; j++) {
+  debugger;
+  for(var i = 0; i < game_state.length-1; i++) {
+    for(var j = 0; j < game_state[i].length-1; j++) {
+      if(the_winner = true) {
+        return;
+      }
       check_diagonal(i, j);
       check_vertical(i, j);
       check_horizontal(i, j);
@@ -342,25 +388,28 @@ will create modal with winner and loser, use firebase to tell the winner they wo
 !!NOT FINISHED
 */
 function winner(player) {
-    pause_timer();
-    var winner_img = function(){
-        switch (current_token){
-            case 0:
-                return 'graphics/blueToken.png';
-            case 1:
-                return 'graphics/2PToken.png';
-        }
-    };
-    var $winner_figure = $('<figure>');
-    var $winner_img = $('<img>',{
-        src: winner_img(),
-        alt: 'player token'
-    });
-    var $winner_figcap = $('<figcaption>').text('Player ' + (current_token+1));
+  the_winner = true;
+  pause_timer();
+  var winner_img = function(){
+      switch (current_token){
+          case 0:
+              return 'graphics/blueToken.png';
+          case 1:
+              return 'graphics/2PToken.png';
+      }
+  };
+  var $winner_figure = $('<figure>');
+  var $winner_img = $('<img>',{
+      src: winner_img(),
+      alt: 'player token'
+  });
+  var $winner_figcap = $('<figcaption>').text('Player ' + (current_token+1));
 
-    $winner_figure.append($winner_img, $winner_figcap);
-    $('.winner-display').append($winner_figure);
-    $('#end-modal').modal();
+  $winner_figure.append($winner_img, $winner_figcap);
+  $('.winner-display').append($winner_figure);
+  $('#end-modal').modal();
+  winning_audio();
+  console.log("player" + player + ' is the winner');
 }
 
 /* function: reset_game
@@ -370,8 +419,13 @@ set current_token to 0
 call function change_game_state to reset the board to empty
 */
 function reset_game() {
+  the_winner = false;
+  player1_bombs = 1;
+  player2_bombs = 1;
+  player1_rocks = 1;
+  player2_rocks = 1;
   game_state = [[''],[''],[''],[''],[''],[''],['']];
-  $('*').removeClass('p2-token p1-token played');
+  $('*').removeClass('p2-token p1-token played bomb bomb-token rock rock-token');
   current_token = 0;
   $('.timer0,.timer1').text('1:00');
   time_left = [60000, 60000];
@@ -396,9 +450,22 @@ function change_turn() {
         $('.player2').addClass('current-player-indicator');
         $('.player1').removeClass('current-player-indicator');
         $('.current-player-icon').attr("src", "graphics/2PToken.png");
-
     }
     call_firebase();
+}
+
+function firebase_set_turn() {
+  start_timer();
+  if(current_token === 0){
+      $('.player1').addClass('current-player-indicator');
+      $('.player2').removeClass('current-player-indicator');
+      $('.current-player-icon').attr("src", "graphics/blueToken.png");
+
+  }else if(current_token = 1){
+      $('.player2').addClass('current-player-indicator');
+      $('.player1').removeClass('current-player-indicator');
+      $('.current-player-icon').attr("src", "graphics/2PToken.png");
+  }
 }
 
 /* function: start_timer
@@ -470,6 +537,19 @@ function audio_piece_placed() {
 }
 
 //FIREBASE
+function rock_placed_audio() {
+    $('#rock_audio').get(0).play();
+}
+
+function bomb_placed_audio() {
+    $('#bomb_audio').get(0).play();
+}
+
+function winning_audio() {
+    $('#winner_audio').get(0).play();
+}
+
+//firebase
 
 var Connect4Model = new GenericFBModel('poopoopoohead',boardUpdated);
 var cavity_game ={};
@@ -480,9 +560,10 @@ function boardUpdated(data){
     }
     networkgame_data = data;
     game_state = data.current_state;
-    console.log('game_state after callback:', game_state);
     current_token = data.player;
     turn_counter = data.turn_count;
+    console.log('game_state after callback:', game_state);
+    firebase_set_turn();
     change_game_state();
     console.log('i am first player', first_player);
 
@@ -492,7 +573,7 @@ function call_firebase() {
     if(local_play){
         return;
     }
-
+  add_empty_strings()
     var cavity_game = {
         player: current_token,
         current_state: game_state,
@@ -526,7 +607,7 @@ function reset_firebase(){
     cavity_game = {
         player: 0,
         current_state: [[''],[''],[''],[''],[''],[''],['']],
-        time: [12000, 12000],
+        time: [60000, 60000],
         turn_count: 1,
     };
     Connect4Model.saveState(cavity_game);
