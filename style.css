@@ -8,14 +8,14 @@ body{
 .content-wrapper{
     width:90%;
     margin:auto;
+    font-family: 'Bahiana', cursive;
+    color:darkgoldenrod;
 }
 
 h1{
     text-align:center;
     font-size:10vmin;
-    font-family: 'Bahiana', cursive;
-    font-style: oblique;
-    color:darkgoldenrod;
+    font-weight: bolder;
     text-shadow: 2px 2px #515151;
 }
 
@@ -31,24 +31,31 @@ h1{
     width:50%;
     height:100%;
     margin: auto;
-    background-color: #e9e9e9;
-    border-radius: 3%;
-    border: 4px #6f6565 ridge;
+    background-color: saddlebrown;
+    border: 4px #5d2e10 ridge;
     opacity: .8;
+    color: darkgoldenrod;
+    font-size: 3vmin;
+}
+.piece-container{
+    border: 2px #5d2e10 inset;
+    width: 80%;
+    margin: auto;
 }
 .timer0,.timer1{
-    font-size: larger;
-    font-weight: 500;
+    font-size: 5vmin;
+    font-weight: bolder;
+    color:red;
 }
 .current-player-panel {
-    font-size: initial;
+    font-size: 5vmin;
+    text-align: center;
     width: 20%;
     margin: 3vh auto;
-    background-color: #e9e9e9;
     opacity: .8;
     padding: auto 2vmin;
-    border-radius: 3%;
-    border: 4px gray ridge;
+    border: 4px #5d2e10 ridge;
+    background-color: saddlebrown;
 }
 .current-player-panel-content{
     margin:0 auto;
@@ -179,8 +186,32 @@ img{
     right:2%;
     font-size:initial;
 }
-
-
+/* START AND END GAME MODALS */
+.modal-content{
+    font-size:initial;
+    font-weight: bolder;
+    background-color: saddlebrown;
+    text-align:center;
+    font-family: 'Bahiana', cursive;
+    color: darkgoldenrod;
+    padding-bottom: 4vmin;
+}
+.modal-content h2{
+    font-size:10vmin;
+}
+.player-image-container{
+    display: flex;
+    justify-content: space-around;
+    font-size: 6vmin;
+}
+.player-image-container div{
+    vertical-align:bottom;
+    padding-top:4vmin;
+}
+.modal-content .btn-lg {
+    font-size: 8vmin;
+    margin:2vmin;
+}
 /*TILESET 1 */
 
 .cell{

@@ -10,12 +10,11 @@ var player1_rocks = 1;
 var player2_rocks = 1;
 var current_player;
 var game_array = null;
-var game_state = [[],[],[],[],[],[],[]]; // game_state is used to track the position of all tokens on the board
+var game_state = [[''],[''],[''],[''],[''],[''],['']]; // game_state is used to track the position of all tokens on the board
 
 var countdown_date;
-var total_time = 120000;
-var time_left = [total_time,total_time];
-var countdown_setInterval;
+var timer_reference;
+var time_left = [60000,60000];
 
 var local_play = true;
 
@@ -32,9 +31,11 @@ function initialize_game() {
     $('.column').click(add_player_token);
     $('.player1').addClass('current-player-indicator');
     timer_button_handler();
-    $('#reset').click(reset_game);
+    $('.reset').click(reset_game);
     $('.use-bomb').click(bomb);
     $('.use-rock').click(rock);
+    $("#start-modal").modal();
+
 }
 
 /* Function: add_player_token
@@ -324,8 +325,25 @@ will create modal with winner and loser, use firebase to tell the winner they wo
 !!NOT FINISHED
 */
 function winner(player) {
-  console.log("player" + player + ' is the winner');
-  setTimeout(alert(player + "is the winner"));
+    pause_timer();
+    var winner_img = function(){
+        switch (current_token){
+            case 0:
+                return 'graphics/blueToken.png';
+            case 1:
+                return 'graphics/2PToken.png';
+        }
+    };
+    var $winner_figure = $('<figure>');
+    var $winner_img = $('<img>',{
+        src: winner_img(),
+        alt: 'player token'
+    });
+    var $winner_figcap = $('<figcaption>').text('Player ' + (current_token+1));
+
+    $winner_figure.append($winner_img, $winner_figcap);
+    $('.winner-display').append($winner_figure);
+    $('#end-modal').modal();
 }
 
 /* function: reset_game
@@ -335,9 +353,12 @@ set current_token to 0
 call function change_game_state to reset the board to empty
 */
 function reset_game() {
-  game_state = [[],[],[],[],[],[],[]];
+  game_state = [[''],[''],[''],[''],[''],[''],['']];
   $('*').removeClass('p2-token p1-token played');
   current_token = 0;
+  $('.timer0,.timer1').text('1:00');
+  time_left = [60000, 60000];
+  start_timer();
   change_game_state();
   reset_firebase();
 }
@@ -374,8 +395,8 @@ function start_timer(){
 /* function: pause_timer
 pauses timer
 */
-function pause_timer(){
-    clearInterval(countdown_setInterval);
+function pause_timer(ref){
+    clearInterval(timer_reference);
 }
 
 /* function: timer_button_handler
@@ -395,9 +416,9 @@ initializes the countdown_clock
 uses new Date to track milliseconds passed
 adds text to the timer class of time life
 */
-function countdown_clock() {
-    countdown_setInterval = setInterval(function () {
 
+function countdown_clock() {
+    timer_reference = setInterval(function () {
         // Get date and time
         var now = new Date().getTime();
 
@@ -414,13 +435,12 @@ function countdown_clock() {
         else {
             $('.timer' + current_token).text(minutes + ":0" + seconds);
         }
-        if (time_left < 0) {
-            clearInterval(countdown_setInterval);
+        if (time_left[current_token] <= 0) {
+            pause_timer(timer_reference);
             $('.timer' + current_token).text("0:00");
         }
-    }, 250);
+    }, 100);
 }
-
 /* function: audio_piece_placed
 plays audio on click, based off of current player
 */
@@ -432,7 +452,7 @@ function audio_piece_placed() {
     }
 }
 
-//firebase
+//FIREBASE
 
 var Connect4Model = new GenericFBModel('poopoohead',boardUpdated);
 var cavity_game ={};
