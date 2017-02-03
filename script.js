@@ -324,6 +324,7 @@ will create modal with winner and loser, use firebase to tell the winner they wo
 !!NOT FINISHED
 */
 function winner(player) {
+  winning_audio();
   console.log("player" + player + ' is the winner');
   setTimeout(alert(player + "is the winner"));
 }
@@ -446,6 +447,18 @@ function audio_piece_placed() {
     }else if(current_token === 1) {
         $('#piece_audio2').get(0).play();
     }
+}
+
+function rock_placed_audio() {
+    $('#rock_audio').get(0).play();
+}
+
+function bomb_placed_audio() {
+    $('#bomb_audio').get(0).play();
+}
+
+function winning_audio() {
+    $('#winner_audio').get(0).play();
 }
 
 //firebase
