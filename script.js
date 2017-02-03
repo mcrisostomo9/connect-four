@@ -474,4 +474,4 @@ function reset_firebase(){
 //
 // function generate_fb_names (){
 //     return new Date().getTime();
-// }
+//}
