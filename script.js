@@ -8,7 +8,7 @@ var player1_bombs = 1;
 var player2_bombs = 1;
 var player1_rocks = 1;
 var player2_rocks = 1;
-var winner = false;
+var the_winner = false;
 var current_player;
 var game_array = null;
 var game_state = [[''],[''],[''],[''],[''],[''],['']]; // game_state is used to track the position of all tokens on the board
@@ -230,7 +230,7 @@ function check_win_whole_board () {
   debugger;
   for(var i = 0; i < game_state.length-1; i++) {
     for(var j = 0; j < game_state[i].length-1; j++) {
-      if(winner = true) {
+      if(the_winner = true) {
         return;
       }
       check_diagonal(i, j);
@@ -339,7 +339,7 @@ will create modal with winner and loser, use firebase to tell the winner they wo
 !!NOT FINISHED
 */
 function winner(player) {
-  winner = true;
+  the_winner = true;
   pause_timer();
   var winner_img = function(){
       switch (current_token){
@@ -361,7 +361,6 @@ function winner(player) {
   $('#end-modal').modal();
   winning_audio();
   console.log("player" + player + ' is the winner');
-  setTimeout(alert(player + "is the winner"));
 }
 
 /* function: reset_game
@@ -371,7 +370,7 @@ set current_token to 0
 call function change_game_state to reset the board to empty
 */
 function reset_game() {
-  winner = false;
+  the_winner = false;
   game_state = [[''],[''],[''],[''],[''],[''],['']];
   $('*').removeClass('p2-token p1-token played bomb bomb-token rock rock-token');
   current_token = 0;
