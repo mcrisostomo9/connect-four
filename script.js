@@ -42,6 +42,8 @@ function initialize_game() {
 /* Function: add_player_token
 for loop to loop through and compare the element clicked to all columns, used to determine which column was clicked on
 push the current players token to game_state[the_column]
+if current token is 3 it adds a rock, then the player who used the rock
+if current token is 2, it adds a bomb, then uses a timeout to detonate the bomb after it has lande
 call function to change game state, used to update the game board in browser with the changes
 check for win
 call function to play sound for piece played
@@ -140,8 +142,11 @@ function add_player_token() {
     change_turn();
 }
 
-
-
+/* function: drop_the_bomb
+called after bomb is dropped
+loops through game_state looking for a bomb and splices all surrounding game tokens
+calls add_empty_strings to make sure arrays are not empty
+*/
 function drop_the_bomb() {
   for(var i = 0; i < game_state.length; i++) {
     for(var j = 0; j < game_state[i].length; j++) {
@@ -167,6 +172,9 @@ function drop_the_bomb() {
   add_empty_strings();
 }
 
+/* function: add_empty_strings
+adds an empty string to any empty array. if we do not, firebase will remove the array breaking the game
+*/
 function add_empty_strings() {
   for(var i = 0; i < game_state.length-1; i++) {
     if(!(game_state[i].length >= 1)) {
@@ -175,6 +183,10 @@ function add_empty_strings() {
   }
 }
 
+/* function: rock
+stores the current player in current_player
+changes current_token to 3 to signal it is a rock
+*/
 function rock() {
   if(current_token != 3) {
       current_player = current_token;
@@ -182,6 +194,10 @@ function rock() {
   }
 }
 
+/* function: bomb
+stores the current player in current_player
+changes current_token to 2 to signal it is a bomb
+*/
 function bomb() {
     if(current_token != 2) {
         current_player = current_token;
