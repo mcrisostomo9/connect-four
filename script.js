@@ -148,23 +148,29 @@ function drop_the_bomb() {
       if(game_state[i][j] == 2){
         if(game_state[i].length <= 2) {
           game_state[i].splice(0);
-          if(i-1 >= 0) {
-            game_state[i-1].splice(0, 3);
-          }
-          if(i+1 <= game_state.length-1) {
-            game_state[i+1].splice(0, 3);
-          }
+          game_state[i-1].splice(0, 3);
+          game_state[i+1].splice(0, 3);
         } else {
-          game_state[i].splice(j-1, 3);
-          if(i-1 >= 0) {
+          if((j-1) >= 0) {
+            game_state[i].splice(j-1, 3);
+            game_state[i+1].splice(j-1, 3);
             game_state[i-1].splice(j-1, 3);
+          } else {
+            game_state[i].splice(j, 2);
+            game_state[i+1].splice(j, 2);
+            game_state[i-1].splice(j, 2);
           }
-          if (i+1 < game_state.length) {
-            game_state[i+1].splice(j-1, 3);            
-          }
-
         }
       }
+    }
+  }
+  add_empty_strings();
+}
+
+function add_empty_strings() {
+  for(var i = 0; i < game_state.length-1; i++) {
+    if(!(game_state[i].length >= 1)) {
+      game_state[i][0] = '';
     }
   }
 }
@@ -190,7 +196,7 @@ function bomb() {
 function change_game_state () {
   for(var i = 0; i < 7; i++) {
     for(var j = 0; j < 6; j++) {
-      if(game_state[i][j] == undefined) {
+      if(game_state[i][j] == undefined || game_state[i][j] === '') {
         $('.game-area').find('.column:nth-child(' + (i+1) + ')').find('.cell:nth-child(' + (j+1) + ')').find('.player-token').removeClass('p2-token played p1-token bomb bomb-token played rock rock-token')
       }
       if(game_state[i][j] === 1) {
@@ -508,11 +514,7 @@ function boardUpdated(data){
 }
 
 function call_firebase() {
-  for(var i = 0; i < game_state.length-1; i++) {
-    if(game_state[i][0] === undefined) {
-      game_state[i][0] = '';
-    }
-  }
+  add_empty_strings()
     var cavity_game = {
         player: current_token,
         current_state: game_state,
