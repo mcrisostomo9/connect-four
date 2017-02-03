@@ -330,7 +330,6 @@ will create modal with winner and loser, use firebase to tell the winner they wo
 !!NOT FINISHED
 */
 function winner(player) {
-<<<<<<< HEAD
   winner = true;
   pause_timer();
   var winner_img = function(){
@@ -351,11 +350,9 @@ function winner(player) {
   $winner_figure.append($winner_img, $winner_figcap);
   $('.winner-display').append($winner_figure);
   $('#end-modal').modal();
-=======
   winning_audio();
   console.log("player" + player + ' is the winner');
   setTimeout(alert(player + "is the winner"));
->>>>>>> more-sounds
 }
 
 /* function: reset_game
