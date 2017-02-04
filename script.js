@@ -285,7 +285,6 @@ function check_win(col, row) {
 loops through the whole game state array, and checks for four in a row for each token on the board
 */
 function check_win_whole_board () {
-  debugger;
   for(var i = 0; i < game_state.length-1; i++) {
     for(var j = 0; j < game_state[i].length-1; j++) {
       if(the_winner = true) {
