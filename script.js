@@ -574,7 +574,6 @@ function winning_audio() {
 var Connect4Model = new GenericFBModel('poopoopoohead',boardUpdated);
 var cavity_game ={};
 function boardUpdated(data){
-    console.log('data of callback function', data);
     if (data === null){
         return;
     }
@@ -582,10 +581,8 @@ function boardUpdated(data){
     game_state = data.current_state;
     current_token = data.player;
     turn_counter = data.turn_count;
-    console.log('game_state after callback:', game_state);
     firebase_set_turn();
     change_game_state();
-    console.log('i am first player', first_player);
 
 }
 
@@ -606,7 +603,6 @@ function call_firebase() {
         cavity_game.first_player =  true;
         first_player = true;
     }
-    console.log("before being sent: ", cavity_game);
     Connect4Model.saveState(cavity_game);
 }
 
@@ -634,7 +630,6 @@ function reset_firebase(){
 }
 
 function first_player_check(){
-    console.log('this is being run');
     $('#first-player .yes, #first-player .no').click(function(){
         if ($(this).text() === "Yes"){
             first_player = true;
