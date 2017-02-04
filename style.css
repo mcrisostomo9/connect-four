@@ -223,7 +223,7 @@ img{
     background: url("graphics/_rocky/rocky01.png") no-repeat bottom;
 }
 .cell:nth-child(6){
-    background: url("graphics/_leafy ground/leafy_ground01.png") no-repeat bottom;
+    background: url("graphics/_leafyground/leafy_ground01.png") no-repeat bottom;
 }
 .cell:nth-child(7){
     background:none;
@@ -244,10 +244,10 @@ img{
     background: url("graphics/_hollow/hollow13.png") no-repeat bottom;
 }
 .column2 .cell:nth-child(6){
-    background: url("graphics/_leafy hollow/leafy_hollow01.png") no-repeat bottom;
+    background: url("graphics/_leafyhollow/leafy_hollow01.png") no-repeat bottom;
 }
 .column3 .cell:nth-child(6){
-    background: url("graphics/_leafy hollow/leafy_hollow02.png") no-repeat bottom;
+    background: url("graphics/_leafyhollow/leafy_hollow02.png") no-repeat bottom;
 }
 .column3 .cell:nth-child(4){
     background: url("graphics/_hollow/hollow10.png") no-repeat bottom;
