@@ -243,12 +243,12 @@ img{
 .column2 .cell:nth-child(5){
     background: url("graphics/hollow/hollow13.png") no-repeat bottom;
 }
-/*.column2 .cell:nth-child(6){
+.column2 .cell:nth-child(6){
     background: url("graphics/leafyhollow/leafyhollow01.png") no-repeat bottom;
 }
 .column3 .cell:nth-child(6){
     background: url("graphics/leafyhollow/leafyhollow02.png") no-repeat bottom;
-}*/
+}
 .column3 .cell:nth-child(4){
     background: url("graphics/hollow/hollow10.png") no-repeat bottom;
 }
