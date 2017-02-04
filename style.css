@@ -102,7 +102,7 @@ img{
     width: 100%;
     height: 100%;
     #border: 2px black solid;
-    #background: gray url("graphics/_ground/ground07.png") no-repeat;
+    #background: gray url("graphics/ground/ground07.png") no-repeat;
     background-size: cover;
     position:relative;
 }
@@ -122,7 +122,7 @@ img{
 .rock-token{
   width:100%;
   height:100%;
-  background:url("graphics/_aboveground/_rocks/stone01.png") no-repeat;
+  background:url("graphics/aboveground/rocks/stone01.png") no-repeat;
   background-size:cover;
 }
 
@@ -220,10 +220,10 @@ img{
 }
 
 .cell:nth-child(1){
-    background: url("graphics/_rocky/rocky01.png") no-repeat bottom;
+    background: url("graphics/rocky/rocky01.png") no-repeat bottom;
 }
 .cell:nth-child(6){
-    background: url("graphics/_leafyground/leafy_ground01.png") no-repeat bottom;
+    background: url("graphics/leafyground/leafyground01.png") no-repeat bottom;
 }
 .cell:nth-child(7){
     background:none;
