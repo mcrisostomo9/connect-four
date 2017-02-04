@@ -439,8 +439,7 @@ function reset_game() {
   start_timer();
   change_game_state();
   reset_firebase();
-  $('.winner-display').html('');
-    $('#background_audio').get(0).play();
+  $('#background_audio').get(0).play();
 
 }
 
